@@ -3,7 +3,7 @@ import { teamMembers } from '../utils/mockData'
 
 function About() {
   useEffect(() => {
-    document.title = 'About Us - FoodTraker'
+    document.title = 'About Us - FoodTracker'
   }, [])
   
   return (
@@ -13,7 +13,7 @@ function About() {
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-                About <span className="text-gradient">FoodTraker</span>
+                About <span className="text-gradient">FoodTracker</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-600 mb-6">
                 We're revolutionizing food delivery with real-time tracking and transparency.
@@ -108,7 +108,7 @@ function About() {
                   <div className="bg-white p-6 rounded-lg shadow-md">
                     <h4 className="text-xl font-bold mb-2">2024: Foundation</h4>
                     <p className="text-gray-600">
-                      FoodTraker was founded in Mumbai City with a mission to bring transparency to food delivery through real-time tracking technology.
+                      FoodTracker was founded in Mumbai City with a mission to bring transparency to food delivery through real-time tracking technology.
                     </p>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ function About() {
                   <div className="bg-white p-6 rounded-lg shadow-md">
                     <h4 className="text-xl font-bold mb-2">2024 December: National Expansion</h4>
                     <p className="text-gray-600">
-                      FoodKhoj expanded to 10 major cities across the India and secured 500Cr in Series A funding.
+                      FoodTracker expanded to 10 major cities across the India and secured 500Cr in Series A funding.
                     </p>
                   </div>
                 </div>
@@ -156,7 +156,7 @@ function About() {
                   <div className="bg-white p-6 rounded-lg shadow-md">
                     <h4 className="text-xl font-bold mb-2">2025 April: Going Global</h4>
                     <p className="text-gray-600">
-                      FoodKhoj begins international expansion and introduces new AI-powered delivery time predictions for even greater accuracy.
+                      FoodTracker begins international expansion and introduces new AI-powered delivery time predictions for even greater accuracy.
                     </p>
                   </div>
                 </div>

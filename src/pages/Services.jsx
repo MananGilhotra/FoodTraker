@@ -7,7 +7,7 @@ function Services() {
   const [activeAccordion, setActiveAccordion] = useState(null)
   
   useEffect(() => {
-    document.title = 'Services - FoodKhoj'
+    document.title = 'Services - FoodTracker'
   }, [])
   
   const toggleAccordion = (index) => {

@@ -7,7 +7,7 @@ function Blog() {
   const [filteredPosts, setFilteredPosts] = useState(blogPosts)
   
   useEffect(() => {
-    document.title = 'Blog - FoodTraker'
+    document.title = 'Blog - FoodTracker'
   }, [])
   
   useEffect(() => {

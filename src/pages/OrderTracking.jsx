@@ -18,7 +18,7 @@ function OrderTracking() {
     const order = trackOrder(orderId)
     setActiveOrder(order)
     
-    document.title = `Tracking Order #${orderId.slice(-4)} - FoodKhoj`
+    document.title = `Tracking Order #${orderId.slice(-4)} - FoodTracker`
     
     return () => {
       if (timeIntervalRef.current) clearInterval(timeIntervalRef.current)

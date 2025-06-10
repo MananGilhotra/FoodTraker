@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 
 function Home() {
   useEffect(() => {
-    document.title = 'FoodKhoj - Real-Time Food Delivery Tracking'
+    document.title = 'FoodTracker - Real-Time Food Delivery Tracking'
   }, [])
   
   return (

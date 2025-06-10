@@ -61,7 +61,7 @@ function SellingPoints() {
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Choose <span className="text-gradient">FoodKhoj</span>?
+              Why Choose <span className="text-gradient">FoodTracker</span>?
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Our cutting-edge tracking technology ensures you're always in the loop about your food delivery.
