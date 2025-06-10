@@ -43,7 +43,7 @@ function Navbar() {
     <nav className={navbarClasses}>
       <div className="container-custom flex items-center justify-between">
         <Link to="/" className="flex items-center">
-          <span className="text-primary-500 font-bold text-2xl">Food<span className="text-accent-500">Khoj</span></span>
+          <span className="text-primary-500 font-bold text-2xl">Food<span className="text-accent-500">Traker</span></span>
         </Link>
         
         <div className="hidden md:flex items-center space-x-1">
