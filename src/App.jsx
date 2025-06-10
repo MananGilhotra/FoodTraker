@@ -23,7 +23,7 @@ function App() {
       <div className="h-screen w-screen flex items-center justify-center bg-white">
         <div className="flex flex-col items-center">
           <div className="w-16 h-16 border-t-4 border-primary-500 border-solid rounded-full animate-spin"></div>
-          <h1 className="mt-4 text-xl font-bold text-primary-500">FoodKhoj</h1>
+          <h1 className="mt-4 text-xl font-bold text-primary-500">FoodTraker</h1>
           <p className="text-sm text-gray-500 mt-2">Loading amazing food experiences...</p>
         </div>
       </div>
