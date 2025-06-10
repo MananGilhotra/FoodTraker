@@ -222,9 +222,11 @@ function TrackingPreview() {
                     </div>
                   </div>
                   
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/5">
-                    <div className="text-center">
-                      <p className="text-gray-600 mb-2">This is a simulated map view.</p>
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="relative z-10 bg-white/90 backdrop-blur-md border border-gray-200 rounded-lg p-4 shadow-md text-center mx-auto max-w-sm pointer-events-auto">
+                      <p className="text-sm text-gray-700 mb-3">
+                        This is a simulated map view for demonstration purposes. This would connect to the Google Maps API for real-time tracking.
+                      </p>
                       <Link to="/track/order2" className="btn-primary inline-flex items-center">
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
