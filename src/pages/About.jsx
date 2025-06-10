@@ -3,7 +3,7 @@ import { teamMembers } from '../utils/mockData'
 
 function About() {
   useEffect(() => {
-    document.title = 'About Us - FoodKhoj'
+    document.title = 'About Us - FoodTraker'
   }, [])
   
   return (
