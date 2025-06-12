@@ -258,7 +258,7 @@ function About() {
               Meet Our <span className="text-gradient">Team</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              The passionate people behind FoodKhoj working to revolutionize food delivery tracking
+              The passionate people behind FoodTracker working to revolutionize food delivery tracking
             </p>
           </div>
           
