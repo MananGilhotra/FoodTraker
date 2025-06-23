@@ -1,374 +1,258 @@
-import { useState, useEffect, useRef } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { useOrder } from "../Context/OrderContext"
-import { getCurrentDriverLocation } from '../utils/mockData'
-import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
+import { useParams, Link } from 'react-router-dom';
+import { useOrder } from '../Context/OrderContext';
+import { getCurrentDriverLocation, generateFakeRoute } from '../utils/mockData';
+import { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Polyline, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
-const mapContainerStyle = { width: '100%', height: '400px' }
-const defaultZoom = 13
-
-function getMapCenter(order) {
-  if (!order) return { lat: 40.7128, lng: -74.0060 }
-  // Center between restaurant and delivery address
-  const { lat: lat1, lng: lng1 } = order.restaurant.location
-  const { lat: lat2, lng: lng2 } = order.deliveryAddress.location
-  return {
-    lat: (lat1 + lat2) / 2,
-    lng: (lng1 + lng2) / 2
-  }
-}
-
+// Custom marker icons
 const restaurantIcon = new L.Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png',
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
-})
+  iconSize: [36, 36],
+  iconAnchor: [18, 36],
+  popupAnchor: [0, -36],
+});
 const deliveryIcon = new L.Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
-})
+  iconSize: [36, 36],
+  iconAnchor: [18, 36],
+  popupAnchor: [0, -36],
+});
 const driverIcon = new L.Icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png',
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
-})
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/194/194938.png',
+  iconSize: [36, 36],
+  iconAnchor: [18, 36],
+  popupAnchor: [0, -36],
+});
 
-function OrderTracking() {
-  const { orderId } = useParams()
-  const { getOrder, trackOrder, updateOrderStatus } = useOrder()
-  const [activeOrder, setActiveOrder] = useState(null)
-  const [driverLocation, setDriverLocation] = useState(null)
-  const [deliveryProgress, setDeliveryProgress] = useState(0)
-  const [currentTime, setCurrentTime] = useState(new Date())
-  const [routePolyline, setRoutePolyline] = useState(null)
-  
-  const timeIntervalRef = useRef(null)
-  const locationIntervalRef = useRef(null)
-  
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
+
+function MapAutoFit({ route, deliveryLoc, restaurantLoc }) {
+  const map = useMap();
   useEffect(() => {
-    const order = trackOrder(orderId)
-    setActiveOrder(order)
-    
-    document.title = `Tracking Order #${orderId.slice(-4)} - FoodTracker`
-    
-    return () => {
-      if (timeIntervalRef.current) clearInterval(timeIntervalRef.current)
-      if (locationIntervalRef.current) clearInterval(locationIntervalRef.current)
+    if (route && route.length > 1) {
+      const bounds = L.latLngBounds([
+        ...route.map(p => [p.lat, p.lng]),
+        [deliveryLoc.lat, deliveryLoc.lng],
+        [restaurantLoc.lat, restaurantLoc.lng],
+      ]);
+      map.fitBounds(bounds, { padding: [30, 30] });
     }
-  }, [orderId, trackOrder])
-  
+  }, [route, map, deliveryLoc, restaurantLoc]);
+  return null;
+}
+
+// Helper to generate a random point near a given location
+function randomNearbyLocation(center, radius = 0.036) {
+  const randomAngle = Math.random() * Math.PI * 2;
+  const randomRadius = Math.random() * radius;
+  const offsetLat = randomRadius * Math.cos(randomAngle);
+  const offsetLng = randomRadius * Math.sin(randomAngle);
+  return {
+    lat: center.lat + offsetLat,
+    lng: center.lng + offsetLng
+  };
+}
+
+export default function OrderTracking() {
+  const { orderId } = useParams();
+  const { getOrder } = useOrder();
+  const [order, setOrder] = useState(null);
+  const [driverLoc, setDriverLoc] = useState(null);
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
-    timeIntervalRef.current = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
-    
-    return () => {
-      if (timeIntervalRef.current) clearInterval(timeIntervalRef.current)
+    const o = getOrder(orderId);
+    setOrder(o);
+    if (o) setDriverLoc(getCurrentDriverLocation(o));
+    let interval;
+    if (o && o.status === 'on-the-way' && o.route) {
+      interval = setInterval(() => {
+        setDriverLoc(getCurrentDriverLocation({ ...o, orderedAt: o.orderedAt, estimatedDelivery: o.estimatedDelivery, status: o.status, route: o.route }));
+      }, 5000);
     }
-  }, [])
-  
-  // Update driver location every 3 seconds
+    return () => clearInterval(interval);
+  }, [orderId, getOrder]);
+
   useEffect(() => {
-    if (activeOrder) {
-      const updateLocation = () => {
-        setDriverLocation(getCurrentDriverLocation(activeOrder))
-      }
-      
-      updateLocation() 
-      locationIntervalRef.current = setInterval(updateLocation, 3000)
-      
-      return () => {
-        if (locationIntervalRef.current) clearInterval(locationIntervalRef.current)
-      }
-    }
-  }, [activeOrder])
-  
-  useEffect(() => {
-    if (activeOrder) {
-      const orderTime = new Date(activeOrder.orderedAt).getTime()
-      const estimatedTime = new Date(activeOrder.estimatedDelivery).getTime()
-      const currentTimeMs = currentTime.getTime()
-      const totalDuration = estimatedTime - orderTime
-      const elapsed = currentTimeMs - orderTime
-      
-      let progress = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100)
-      
-      if (activeOrder.status === 'delivered') {
-        progress = 100
-      }
-      
-      setDeliveryProgress(progress)
-      
-      if (progress > 75 && activeOrder.status === 'preparing') {
-        updateOrderStatus(activeOrder.id, 'on-the-way')
-      } else if (progress >= 100 && activeOrder.status === 'on-the-way') {
-        updateOrderStatus(activeOrder.id, 'delivered')
-      }
-    }
-  }, [activeOrder, currentTime, updateOrderStatus])
-  
-  useEffect(() => {
-    async function fetchRoute() {
-      if (!activeOrder) return;
-      const start = activeOrder.restaurant.location;
-      const end = activeOrder.deliveryAddress.location;
-      const apiKey = import.meta.env.VITE_ORS_API_KEY;
-      if (!apiKey) return;
-      try {
-        const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data && data.features && data.features[0]) {
-          const coords = data.features[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
-          setRoutePolyline(coords);
-        }
-      } catch (e) {
-        setRoutePolyline(null);
-      }
-    }
-    fetchRoute();
-  }, [activeOrder]);
-  
-  const getFormattedTime = () => {
-    if (!activeOrder) return '--'
-    if (activeOrder.status === 'delivered') return 'Delivered'
-    // If routePolyline exists, estimate time based on length (1 min per km, rough)
-    if (routePolyline && routePolyline.length > 1) {
-      let totalDistance = 0;
-      for (let i = 1; i < routePolyline.length; i++) {
-        const [lat1, lng1] = routePolyline[i - 1];
-        const [lat2, lng2] = routePolyline[i];
-        const R = 6371; // km
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLng = (lng2 - lng1) * Math.PI / 180;
-        const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng/2) * Math.sin(dLng/2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        totalDistance += R * c;
-      }
-      // Assume 1 min per km, min 15 min
-      const etaMin = Math.max(Math.round(totalDistance), 15);
-      // If already delivered, show Delivered
-      if (activeOrder.status === 'delivered') return 'Delivered';
-      // If on-the-way or preparing, show remaining time
-      const orderTime = new Date(activeOrder.orderedAt).getTime();
-      const now = Date.now();
-      const elapsedMin = Math.floor((now - orderTime) / 60000);
-      const remaining = Math.max(etaMin - elapsedMin, 0);
-      return remaining === 0 ? 'Arriving soon' : `${remaining} min`;
-    }
-    // Fallback: use estimatedDelivery
-    const estimatedTime = new Date(activeOrder.estimatedDelivery).getTime()
-    const currentTimeMs = currentTime.getTime()
-    const remainingMs = Math.max(estimatedTime - currentTimeMs, 0)
-    const minutes = Math.floor(remainingMs / 60000)
-    return minutes === 0 ? 'Arriving soon' : `${minutes} min`
-  }
-  
-  if (!activeOrder) {
+    if (!order) return;
+    const total = new Date(order.estimatedDelivery) - new Date(order.orderedAt);
+    const elapsed = Date.now() - new Date(order.orderedAt);
+    setProgress(Math.min(1, elapsed / total));
+    const timer = setInterval(() => {
+      const elapsed = Date.now() - new Date(order.orderedAt);
+      setProgress(Math.min(1, elapsed / total));
+    }, 10000);
+    return () => clearInterval(timer);
+  }, [order]);
+
+  if (!order) {
     return (
-      <div className="pt-28 pb-16 flex items-center justify-center min-h-[60vh]">
-        <div className="text-center">
-          <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 13.5V15m-6 4h12a2 2 0 002-2v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-          </svg>
-          <h2 className="text-2xl font-bold mb-2">Order Not Found</h2>
-          <p className="text-gray-600 mb-6">We couldn't find an order with ID: {orderId}</p>
-          <Link to="/" className="btn-primary">
-            Return Home
-          </Link>
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <h2 className="text-2xl font-bold mb-2">Order not found</h2>
+        <Link to="/" className="text-primary-500 underline">Back to Home</Link>
       </div>
-    )
+    );
   }
+
   const steps = [
-    { id: 'ordered', label: 'Order Received' },
-    { id: 'preparing', label: 'Preparing' },
-    { id: 'on-the-way', label: 'On the Way' },
-    { id: 'delivered', label: 'Delivered' }
-  ]
-  
-  const currentStepIndex = steps.findIndex(step => step.id === activeOrder.status)
-  
+    { key: 'ordered', label: 'Ordered', icon: '🛒' },
+    { key: 'preparing', label: 'Preparing', icon: '👨‍🍳' },
+    { key: 'on-the-way', label: 'On the way', icon: '🚗' },
+    { key: 'delivered', label: 'Delivered', icon: '✅' },
+  ];
+  const currentStep = steps.findIndex(s => s.key === order.status);
+  const eta = Math.max(0, Math.round((new Date(order.estimatedDelivery) - Date.now()) / 60000));
+
+  // Map points
+  const restaurantLoc = order.restaurant.location;
+  // If delivery location is the same as restaurant, use a random nearby location for map display only
+  let deliveryLoc = order.deliveryAddress.location;
+  if (deliveryLoc.lat === restaurantLoc.lat && deliveryLoc.lng === restaurantLoc.lng) {
+    deliveryLoc = randomNearbyLocation(restaurantLoc, 0.036); // ~4km
+  }
+  // Always generate a route for the map between restaurant and delivery location
+  const route = (order.route && order.route.length > 1)
+    ? order.route
+    : generateFakeRoute(restaurantLoc, deliveryLoc);
+
+  // Calculate the original expected delivery window (10-15 min)
+  let expectedWindow = '';
+  if (order) {
+    const totalMin = Math.round((new Date(order.estimatedDelivery) - new Date(order.orderedAt)) / 60000);
+    // If it's between 10 and 15, show as a window, else show the actual
+    if (totalMin >= 10 && totalMin <= 15) {
+      expectedWindow = 'Expected delivery: 10-15 min';
+    } else {
+      expectedWindow = `Expected delivery: ${totalMin} min`;
+    }
+  }
+
   return (
-    <div className="pt-28 pb-16 bg-gray-50 min-h-screen">
-      <div className="container-custom max-w-6xl mx-auto">
-        <div className="mb-6">
-          <Link
-            to="/"
-            className="text-primary-500 hover:text-primary-600 transition-colors inline-flex items-center space-x-1 text-sm font-medium"
-          >
-            <span className="flex items-center space-x-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-              </svg>
-              <span>Back to Home</span>
-            </span>
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left: Progress, Driver, Summary */}
-          <div className="lg:col-span-1 space-y-8">
-            {/* Order Progress */}
-            <section className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-lg font-bold mb-4">Order Progress</h2>
-              <div className="flex justify-between items-center mb-4">
-                <div>
-                  <h1 className="text-xl font-bold">Order #{orderId.slice(-4)}</h1>
-                  <p className="text-gray-500 text-xs">{new Date(activeOrder.orderedAt).toLocaleString()}</p>
-                </div>
-                <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  activeOrder.status === 'delivered' ? 'bg-success-500 text-white' :
-                  activeOrder.status === 'on-the-way' ? 'bg-primary-500 text-white' :
-                  activeOrder.status === 'preparing' ? 'bg-warning-500 text-white' :
-                  'bg-gray-200 text-gray-800'
-                }`}>
-                  {steps.find(step => step.id === activeOrder.status)?.label}
-                </div>
-              </div>
-              {/* Stepper */}
-              <div className="mb-4">
-                <div className="relative flex justify-between items-center">
-                  {steps.map((step, idx) => (
-                    <div key={step.id} className="flex flex-col items-center flex-1">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center z-10 transition-all duration-300 ${
-                        idx <= currentStepIndex ? 'bg-primary-500 text-white' : 'bg-gray-200 text-gray-400'
-                      }`}>
-                        {idx < currentStepIndex ? (
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                          </svg>
-                        ) : (
-                          <span className="text-xs font-bold">{idx + 1}</span>
-                        )}
-                      </div>
-                      <span className={`text-xs mt-2 font-medium ${idx <= currentStepIndex ? 'text-primary-500' : 'text-gray-400'}`}>{step.label}</span>
-                    </div>
-                  ))}
-                  <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 z-0" style={{ transform: 'translateY(-50%)' }}></div>
-                  <div className="absolute top-1/2 left-0 h-1 bg-primary-500 z-0 transition-all duration-500" style={{ width: `${(currentStepIndex / (steps.length - 1)) * 100}%`, transform: 'translateY(-50%)' }}></div>
-                </div>
-              </div>
-              {/* ETA */}
-              <div className="text-center mt-4">
-                <div className="text-xs text-gray-500 mb-1">Estimated Delivery</div>
-                <div className="text-2xl font-bold text-primary-500">{getFormattedTime()}</div>
-                <div className="text-xs text-gray-500 mt-1">
-                  {activeOrder.status === 'delivered' ? 'Delivered!' : activeOrder.status === 'on-the-way' ? 'Your food is on the way' : 'Being prepared'}
-                </div>
-              </div>
-            </section>
-            {/* Driver Info */}
-            <section className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-lg font-bold mb-4">Delivery Driver</h2>
-              {activeOrder.status === 'on-the-way' && activeOrder.driverName && activeOrder.driverName !== 'Not assigned' ? (
-                <div className="flex items-center gap-4">
-                  <img src={activeOrder.driverPhoto || 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png'} alt={activeOrder.driverName} className="w-14 h-14 object-cover rounded-full border-2 border-primary-500" />
-                  <div>
-                    <h4 className="font-bold">{activeOrder.driverName}</h4>
-                    <div className="text-xs text-gray-500">3 years experience</div>
-                    <div className="flex gap-2 mt-2">
-                      <a href={`tel:${activeOrder.driverPhone}`} className="btn-secondary px-3 py-1 text-xs">Call</a>
-                      <button className="btn-outline px-3 py-1 text-xs">Text</button>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="text-gray-500 text-sm">Driver not assigned yet.</div>
-              )}
-            </section>
-            {/* Order Summary */}
-            <section className="bg-white rounded-xl shadow-md p-6">
-              <h2 className="text-lg font-bold mb-4">Order Summary</h2>
-              <ul className="space-y-2 mb-4">
-                {activeOrder.items.map((item, idx) => (
-                  <li key={idx} className="flex justify-between text-sm">
-                    <span>{item.quantity}x {item.name}</span>
-                    <span>₹{(item.price * item.quantity).toFixed(2)}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="border-t border-gray-100 pt-4 space-y-1 text-sm">
-                <div className="flex justify-between"><span className="text-gray-500">Subtotal</span><span>₹{(activeOrder.total - 5.99 - 125).toFixed(2)}</span></div>
-                <div className="flex justify-between"><span className="text-gray-500">Delivery Fee</span><span>₹5.99</span></div>
-                <div className="flex justify-between"><span className="text-gray-500">Tax</span><span>₹125</span></div>
-                <div className="flex justify-between font-bold mt-2 pt-2 border-t border-gray-100"><span>Total</span><span>₹{activeOrder.total.toFixed(2)}</span></div>
-              </div>
-              <div className="mt-4">
-                <div className="text-xs font-medium mb-1">Delivery Address</div>
-                <p className="text-gray-600 text-xs">{activeOrder.deliveryAddress.address}</p>
-              </div>
-            </section>
+    <div className="w-full min-h-[80vh] flex justify-center bg-gray-50 py-8 px-2">
+      <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8">
+        {/* Left: Map & Status */}
+        <div className="flex-1 bg-white rounded-2xl shadow-xl p-8 flex flex-col gap-8 min-w-[350px]">
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-2xl font-bold text-green-600">Track your order</h1>
+            <Link to="/" className="text-sm text-primary-500 underline">Back to Home</Link>
           </div>
-          {/* Right: Map */}
-          <div className="lg:col-span-2 flex flex-col gap-8">
-            <section className="bg-white rounded-xl shadow-md overflow-hidden">
-              <h2 className="text-lg font-bold p-6 pb-0">Live Delivery Map</h2>
-              <div className="h-[400px] w-full">
-                <MapContainer
-                  center={getMapCenter(activeOrder)}
-                  zoom={defaultZoom}
-                  style={mapContainerStyle}
-                  scrollWheelZoom={false}
-                  dragging={true}
-                  doubleClickZoom={false}
-                  attributionControl={true}
-                >
-                  <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
-                  />
-                  {/* Restaurant Marker */}
-                  <Marker position={activeOrder.restaurant.location} icon={restaurantIcon}>
-                    <Popup>Restaurant: {activeOrder.restaurant.name}</Popup>
-                  </Marker>
-                  {/* Delivery Address Marker */}
-                  <Marker position={activeOrder.deliveryAddress.location} icon={deliveryIcon}>
-                    <Popup>Delivery Address</Popup>
-                  </Marker>
-                  {/* Driver Marker (animated) */}
-                  {driverLocation && (
-                    <Marker position={driverLocation} icon={driverIcon}>
-                      <Popup>Driver</Popup>
-                    </Marker>
-                  )}
-                  {/* Full route polyline (blue) */}
-                  {routePolyline && (
-                    <Polyline positions={routePolyline} pathOptions={{ color: '#2563eb', weight: 5 }} />
-                  )}
-                  {/* Fallback: straight line if no routePolyline */}
-                  {!routePolyline && (
-                    <Polyline
-                      positions={[
-                        [activeOrder.restaurant.location.lat, activeOrder.restaurant.location.lng],
-                        [activeOrder.deliveryAddress.location.lat, activeOrder.deliveryAddress.location.lng]
-                      ]}
-                      pathOptions={{ color: '#2563eb', weight: 5, dashArray: '8,8' }}
-                    />
-                  )}
-                  {/* Polyline from driver to delivery address (cyan) */}
-                  {driverLocation && (
-                    <Polyline
-                      positions={[
-                        [driverLocation.lat, driverLocation.lng],
-                        [activeOrder.deliveryAddress.location.lat, activeOrder.deliveryAddress.location.lng]
-                      ]}
-                      pathOptions={{ color: '#22D3EE', weight: 5, dashArray: '8,8' }}
-                    />
-                  )}
-                </MapContainer>
+          {/* Status Timeline */}
+          <div className="flex items-center justify-between mb-4">
+            {steps.map((step, i) => (
+              <div key={step.key} className="flex flex-col items-center flex-1">
+                <div className={`w-10 h-10 flex items-center justify-center rounded-full text-2xl font-bold mb-1 border-2 ${i <= currentStep ? 'bg-green-500 text-white border-green-500' : 'bg-gray-100 text-gray-400 border-gray-300'}`}>{step.icon}</div>
+                <span className={`text-xs ${i <= currentStep ? 'text-green-600 font-semibold' : 'text-gray-400'}`}>{step.label}</span>
+                {i < steps.length - 1 && <div className={`h-1 w-full bg-gradient-to-r ${i < currentStep ? 'from-green-500 to-green-500' : 'from-gray-300 to-gray-300'} mt-2`}></div>}
               </div>
-            </section>
+            ))}
+          </div>
+          {/* Map and Info */}
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1 min-w-[220px]">
+              <div className="w-full h-64 bg-gray-100 rounded-lg overflow-hidden shadow relative">
+                {route.length > 1 && (
+                  <MapContainer
+                    className="w-full h-full"
+                    style={{ height: '100%', width: '100%', minHeight: 256, borderRadius: '0.75rem' }}
+                    scrollWheelZoom={false}
+                    dragging={true}
+                    zoomControl={true}
+                    doubleClickZoom={false}
+                    attributionControl={false}
+                  >
+                    <TileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution="&copy; OpenStreetMap contributors"
+                    />
+                    <MapAutoFit route={route} deliveryLoc={deliveryLoc} restaurantLoc={restaurantLoc} />
+                    {/* Route polyline */}
+                    <Polyline positions={route.map(p => [p.lat, p.lng])} color="#22c55e" weight={5} />
+                    {/* Restaurant marker */}
+                    <Marker position={[restaurantLoc.lat, restaurantLoc.lng]} icon={restaurantIcon}>
+                      <Popup>Restaurant</Popup>
+                    </Marker>
+                    {/* Delivery marker */}
+                    <Marker position={[deliveryLoc.lat, deliveryLoc.lng]} icon={deliveryIcon}>
+                      <Popup>Delivery</Popup>
+                    </Marker>
+                    {/* Driver marker (only if driverLoc is available) */}
+                    {driverLoc && (
+                      <Marker position={[driverLoc.lat, driverLoc.lng]} icon={driverIcon}>
+                        <Popup>Driver</Popup>
+                      </Marker>
+                    )}
+                  </MapContainer>
+                )}
+                {!route.length && <span className="z-10 text-gray-400 font-semibold absolute inset-0 flex items-center justify-center">Live Map</span>}
+              </div>
+              {/* Map Legend */}
+              <div className="flex justify-center gap-6 mt-3 text-xs text-gray-600">
+                <div className="flex items-center gap-1"><img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Restaurant" className="w-5 h-5" /> Restaurant</div>
+                <div className="flex items-center gap-1"><img src="https://cdn-icons-png.flaticon.com/512/194/194938.png" alt="Driver" className="w-5 h-5" /> Driver</div>
+                <div className="flex items-center gap-1"><img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Delivery" className="w-5 h-5" /> Delivery</div>
+              </div>
+              <div className="flex justify-between mt-2 text-xs text-gray-500">
+                <span>Restaurant</span>
+                <span>Delivery</span>
+              </div>
+            </div>
+            <div className="flex-1 flex flex-col gap-2 justify-center">
+              <div className="flex items-center gap-2">
+                <img src={order.restaurant.image} alt="restaurant" className="w-12 h-12 rounded-full object-cover border shadow" />
+                <div>
+                  <div className="font-semibold text-gray-800 text-lg">{order.restaurant.name}</div>
+                  <div className="text-xs text-gray-500">{order.restaurant.cuisine} • {order.restaurant.priceRange}</div>
+                </div>
+              </div>
+              <div className="text-xs text-gray-500 mt-1">{order.deliveryAddress.address}</div>
+              <div className="flex items-center gap-2 mt-2">
+                <img src={order.driverPhoto || 'https://cdn-icons-png.flaticon.com/512/194/194938.png'} alt="driver" className="w-10 h-10 rounded-full object-cover border shadow" />
+                <div>
+                  <div className="text-base font-semibold text-gray-700">{order.driverName || 'Not assigned'}</div>
+                  <div className="text-xs text-gray-500">{order.driverPhone || 'N/A'}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Progress Bar and ETA */}
+          <div className="mb-2">
+            {expectedWindow && (
+              <div className="text-xs text-gray-500 mb-1">{expectedWindow}</div>
+            )}
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs text-gray-500">Estimated delivery</span>
+              <span className="text-xs font-semibold text-green-600">{eta > 0 ? `${eta} min` : 'Arriving soon'}</span>
+            </div>
+            <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-full bg-green-500 transition-all duration-500" style={{ width: `${progress * 100}%` }}></div>
+            </div>
+          </div>
+        </div>
+        {/* Right: Order Summary (sticky on desktop) */}
+        <div className="w-full md:w-[350px] lg:w-[400px] flex-shrink-0">
+          <div className="bg-white rounded-2xl shadow-xl p-6 sticky top-24">
+            <div className="font-semibold text-gray-800 mb-2 text-lg">Order Summary</div>
+            <ul className="mb-2">
+              {order.items.map((item, i) => (
+                <li key={i} className="flex justify-between text-base text-gray-700 mb-1">
+                  <span>{item.name} x{item.quantity}</span>
+                  <span>₹{(item.price * item.quantity).toFixed(2)}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="flex justify-between font-bold text-gray-800 border-t pt-2 text-lg">
+              <span>Total</span>
+              <span>₹{order.total.toFixed(2)}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
-
-export default OrderTracking
+  );
+} 

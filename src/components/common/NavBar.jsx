@@ -56,6 +56,11 @@ function Navbar() {
           <SearchBar />
         </div>
         
+        <div className="flex items-center gap-4">
+          <Link to="/login" className="px-4 py-2 rounded-lg text-primary-500 hover:bg-primary-50 font-semibold transition">Login</Link>
+          <Link to="/signup" className="px-4 py-2 rounded-lg bg-primary-500 text-white font-semibold hover:bg-primary-600 transition">Sign Up</Link>
+        </div>
+        
         <button 
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none"

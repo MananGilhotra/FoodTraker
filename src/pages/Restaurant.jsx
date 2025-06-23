@@ -4,6 +4,18 @@ import { useCart } from '../Context/CartContext';
 import { useOrder } from '../Context/OrderContext';
 import { useState } from 'react';
 
+// Helper to generate a random point near a given location
+function randomNearbyLocation(center, radius = 0.036) {
+  const randomAngle = Math.random() * Math.PI * 2;
+  const randomRadius = Math.random() * radius;
+  const offsetLat = randomRadius * Math.cos(randomAngle);
+  const offsetLng = randomRadius * Math.sin(randomAngle);
+  return {
+    lat: center.lat + offsetLat,
+    lng: center.lng + offsetLng
+  };
+}
+
 export default function Restaurant() {
   const { id } = useParams();
   const restaurant = restaurants.find(r => r.id === id);
@@ -36,22 +48,25 @@ export default function Restaurant() {
       price: item.price
     }));
     // Create order object
+    const orderedAt = new Date();
+    const randomMinutes = Math.floor(Math.random() * 6) + 10; // 10-15 min
+    const deliveryLocation = randomNearbyLocation(restaurant.location, 0.036); // random point within ~4km
     const order = {
       id: orderId,
       restaurant,
       items: orderItems,
       status: 'ordered',
-      orderedAt: new Date(),
-      estimatedDelivery: new Date(Date.now() + 40 * 60000), // 40 min from now
+      orderedAt,
+      estimatedDelivery: new Date(orderedAt.getTime() + randomMinutes * 60000), // 10-15 min from now
       deliveryAddress: {
         address: address.trim(),
-        location: restaurant.location // (could be improved with geocoding)
+        location: deliveryLocation
       },
       driverName: 'Not assigned',
       driverPhone: '',
       driverPhoto: '',
       total: cart.total,
-      route: generateFakeRoute(restaurant.location, restaurant.location) // default, will be updated later
+      route: generateFakeRoute(restaurant.location, deliveryLocation)
     };
     // Add order to context
     addOrder(order);

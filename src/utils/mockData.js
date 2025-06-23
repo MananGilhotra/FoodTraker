@@ -38,136 +38,141 @@ export const restaurants = [
     id: 'rest1',
     name: 'Shutup & Eat',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu4XRDUz3bnRzqAy_W5ALFyktYofrUzJCFhg&s',
-    location: { lat: 40.7128, lng: -74.0060 }, // NYC
+    location: { lat: 28.6139, lng: 77.2090 }, // Delhi
     rating: 4.7,
     cuisine: 'Indian',
     priceRange: '$$',
     menu: [
-      { id: 'item1', name: 'Butter Chicken', description: 'Creamy tomato-based chicken curry.', price: 15.99, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/04/butter-chicken.jpg' },
-      { id: 'item2', name: 'Garlic Naan', description: 'Soft Indian bread with garlic.', price: 3.99, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Garlic-Naan-500x500.jpg' },
-      { id: 'item3', name: 'Mango Lassi', description: 'Sweet mango yogurt drink.', price: 4.99, image: 'https://www.cookwithmanali.com/wp-content/uploads/2017/05/Mango-Lassi-500x500.jpg' }
+      { id: 'item1', name: 'Butter Chicken', description: 'Creamy tomato-based chicken curry.', price: 350, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/04/butter-chicken.jpg' },
+      { id: 'item2', name: 'Garlic Naan', description: 'Soft Indian bread with garlic.', price: 320, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Garlic-Naan-500x500.jpg' },
+      { id: 'item3', name: 'Mango Lassi', description: 'Sweet mango yogurt drink.', price: 310, image: 'https://www.cookwithmanali.com/wp-content/uploads/2017/05/Mango-Lassi-500x500.jpg' }
     ]
   },
   {
     id: 'rest2',
     name: 'Burger King',
     image: 'https://i.pinimg.com/736x/70/38/01/703801fc16a7c10fdd7aadec9dc5ab81.jpg',
-    location: { lat: 40.7112, lng: -74.0125 },
+    location: { lat: 19.0760, lng: 72.8777 }, // Mumbai
     rating: 4.5,
     cuisine: 'American',
     priceRange: '$$',
     menu: [
-      { id: 'item4', name: 'Double Cheeseburger', description: 'Two beef patties, cheese, and toppings.', price: 8.99, image: 'https://www.burgerking.in/Images/Product/cheese-burger.png' },
-      { id: 'item5', name: 'Fries (Large)', description: 'Crispy golden fries.', price: 3.99, image: 'https://www.burgerking.in/Images/Product/fries.png' },
-      { id: 'item6', name: 'Chocolate Milkshake', description: 'Rich chocolate shake.', price: 4.99, image: 'https://www.burgerking.in/Images/Product/chocolate-milkshake.png' }
+      { id: 'item4', name: 'Double Cheeseburger', description: 'Two beef patties, cheese, and toppings.', price: 399, image: 'https://www.burgerking.in/Images/Product/cheese-burger.png' },
+      { id: 'item5', name: 'Fries (Large)', description: 'Crispy golden fries.', price: 320, image: 'https://www.burgerking.in/Images/Product/fries.png' },
+      { id: 'item6', name: 'Chocolate Milkshake', description: 'Rich chocolate shake.', price: 350, image: 'https://www.burgerking.in/Images/Product/chocolate-milkshake.png' },
+      { id: 'item20', name: 'Coke (Large)', description: 'Chilled Coca-Cola.', price: 310, image: 'https://www.burgerking.in/Images/Product/coke.png' }
     ]
   },
   {
     id: 'rest3',
     name: 'Billus Kitchen',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQXm6nuKcjT7n3JTa_g2JzGtly3mby6uhY_A&s',
-    location: { lat: 40.7200, lng: -74.0090 },
+    location: { lat: 12.9716, lng: 77.5946 }, // Bangalore
     rating: 4.8,
     cuisine: 'Italian',
     priceRange: '$$$',
     menu: [
-      { id: 'item7', name: 'Fettuccine Alfredo', description: 'Pasta in creamy Alfredo sauce.', price: 16.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Fettuccine-Alfredo-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
-      { id: 'item8', name: 'Caprese Salad', description: 'Fresh mozzarella, tomatoes, basil.', price: 8.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Caprese-Salad-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
-      { id: 'item9', name: 'Tiramisu', description: 'Classic Italian dessert.', price: 7.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Tiramisu-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' }
+      { id: 'item7', name: 'Fettuccine Alfredo', description: 'Pasta in creamy Alfredo sauce.', price: 420, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Fettuccine-Alfredo-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
+      { id: 'item8', name: 'Caprese Salad', description: 'Fresh mozzarella, tomatoes, basil.', price: 350, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Caprese-Salad-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
+      { id: 'item9', name: 'Tiramisu', description: 'Classic Italian dessert.', price: 360, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Tiramisu-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' }
     ]
   },
   {
     id: 'rest4',
     name: 'Sushi Zen',
     image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
-    location: { lat: 40.7306, lng: -73.9866 },
+    location: { lat: 22.5726, lng: 88.3639 }, // Kolkata
     rating: 4.6,
     cuisine: 'Japanese',
     priceRange: '$$$',
     menu: [
-      { id: 'item10', name: 'Salmon Sushi', description: 'Fresh salmon over rice.', price: 12.99, image: 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item11', name: 'Miso Soup', description: 'Classic Japanese soup.', price: 3.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item10', name: 'Salmon Sushi', description: 'Fresh salmon over rice.', price: 450, image: 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item11', name: 'Miso Soup', description: 'Classic Japanese soup.', price: 320, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
     ]
   },
   {
     id: 'rest5',
     name: 'Taco Fiesta',
     image: 'https://images.unsplash.com/photo-1514512364185-4c2b67857b39?auto=format&fit=crop&w=400&q=80',
-    location: { lat: 40.7412, lng: -73.9896 },
+    location: { lat: 23.0225, lng: 72.5714 }, // Ahmedabad
     rating: 4.3,
     cuisine: 'Mexican',
     priceRange: '$$',
     menu: [
-      { id: 'item12', name: 'Chicken Taco', description: 'Spicy grilled chicken taco.', price: 5.99, image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item13', name: 'Guacamole', description: 'Fresh avocado dip.', price: 4.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item12', name: 'Chicken Taco', description: 'Spicy grilled chicken taco.', price: 350, image: 'https://images.unsplash.com/photo-1514512364185-4c2b67857b39?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item13', name: 'Guacamole', description: 'Fresh avocado dip.', price: 320, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
     ]
   },
   {
     id: 'rest6',
     name: 'Pizza Palace',
     image: 'https://images.unsplash.com/photo-1548365328-8b849e6c7b8b?auto=format&fit=crop&w=400&q=80',
-    location: { lat: 40.7527, lng: -73.9772 },
+    location: { lat: 18.5204, lng: 73.8567 }, // Pune
     rating: 4.9,
     cuisine: 'Pizza',
     priceRange: '$$',
     menu: [
-      { id: 'item14', name: 'Margherita Pizza', description: 'Classic cheese and tomato.', price: 10.99, image: 'https://images.unsplash.com/photo-1548365328-8b849e6c7b8b?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item15', name: 'Pepperoni Pizza', description: 'Pepperoni and cheese.', price: 12.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item14', name: 'Margherita Pizza', description: 'Classic cheese and tomato.', price: 399, image: 'https://images.unsplash.com/photo-1548365328-8b849e6c7b8b?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item15', name: 'Pepperoni Pizza', description: 'Pepperoni and cheese.', price: 420, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
     ]
   },
   {
     id: 'rest7',
     name: 'Vegan Delight',
     image: 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
-    location: { lat: 40.7589, lng: -73.9851 },
+    location: { lat: 26.9124, lng: 75.7873 }, // Jaipur
     rating: 4.4,
     cuisine: 'Vegan',
     priceRange: '$$',
     menu: [
-      { id: 'item16', name: 'Vegan Burger', description: 'Plant-based burger.', price: 9.99, image: 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item17', name: 'Quinoa Salad', description: 'Healthy quinoa and veggies.', price: 7.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item16', name: 'Vegan Burger', description: 'Plant-based burger.', price: 350, image: 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item17', name: 'Quinoa Salad', description: 'Healthy quinoa and veggies.', price: 320, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
     ]
   },
   {
     id: 'rest8',
     name: 'Curry House',
     image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
-    location: { lat: 40.7484, lng: -73.9857 },
+    location: { lat: 17.3850, lng: 78.4867 }, // Hyderabad
     rating: 4.2,
     cuisine: 'Indian',
     priceRange: '$$',
     menu: [
-      { id: 'item18', name: 'Paneer Tikka Masala', description: 'Spicy paneer curry.', price: 13.99, image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item19', name: 'Aloo Gobi', description: 'Potato and cauliflower curry.', price: 8.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item18', name: 'Paneer Tikka Masala', description: 'Spicy paneer curry.', price: 350, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Paneer-Tikka-Masala.jpg' },
+      { id: 'item19', name: 'Aloo Gobi', description: 'Potato and cauliflower curry.', price: 320, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Aloo-Gobi.jpg' }
     ]
   },
   {
     id: 'rest9',
     name: 'BBQ Nation',
     image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
-    location: { lat: 40.7549, lng: -73.9840 },
+    location: { lat: 13.0827, lng: 80.2707 }, // Chennai
     rating: 4.7,
     cuisine: 'BBQ',
     priceRange: '$$$',
     menu: [
-      { id: 'item20', name: 'BBQ Chicken', description: 'Grilled chicken with BBQ sauce.', price: 15.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item21', name: 'Corn on the Cob', description: 'Grilled corn.', price: 4.99, image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item20', name: 'BBQ Chicken', description: 'Grilled chicken with BBQ sauce.', price: 420, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-BBQ-Chicken-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
+      { id: 'item21', name: 'Corn on the Cob', description: 'Grilled corn.', price: 350, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Grilled-Corn-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' }
     ]
   }
 ]
+
+function randomMinutes(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 export const mockOrders = [
   {
     id: 'order1',
     restaurant: restaurants[0],
     items: [
-      { name: 'Butter Chicken', quantity: 1, price: 15.99 },
-      { name: 'Garlic Naan', quantity: 2, price: 3.99 },
-      { name: 'Mango Lassi', quantity: 1, price: 4.99 }
+      { name: 'Butter Chicken', quantity: 1, price: 15.99, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/04/butter-chicken.jpg' },
+      { name: 'Garlic Naan', quantity: 2, price: 3.99, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Garlic-Naan-500x500.jpg' },
+      { name: 'Mango Lassi', quantity: 1, price: 4.99, image: 'https://www.cookwithmanali.com/wp-content/uploads/2017/05/Mango-Lassi-500x500.jpg' }
     ],
     status: 'preparing', 
-    orderedAt: new Date(Date.now() - 25 * 60000), // 25 minutes ago
-    estimatedDelivery: new Date(Date.now() + 20 * 60000), // 20 minutes from now
+    orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
+    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
     deliveryAddress: {
       address: '123 Main St, New York, NY 10001',
       location: { lat: 40.7282, lng: -73.9942 }
@@ -185,14 +190,14 @@ export const mockOrders = [
     id: 'order2',
     restaurant: restaurants[1],
     items: [
-      { name: 'Double Cheeseburger', quantity: 2, price: 8.99 },
-      { name: 'Fries (Large)', quantity: 1, price: 3.99 },
-      { name: 'Coke (Large)', quantity: 1, price: 2.50 },
-      { name: 'Chocolate Milkshake', quantity: 2, price: 4.99 }
+      { name: 'Double Cheeseburger', quantity: 2, price: 8.99, image: 'https://www.burgerking.in/Images/Product/cheese-burger.png' },
+      { name: 'Fries (Large)', quantity: 1, price: 3.99, image: 'https://www.burgerking.in/Images/Product/fries.png' },
+      { name: 'Coke (Large)', quantity: 1, price: 2.50, image: 'https://www.burgerking.in/Images/Product/coke.png' },
+      { name: 'Chocolate Milkshake', quantity: 2, price: 4.99, image: 'https://www.burgerking.in/Images/Product/chocolate-milkshake.png' }
     ],
     status: 'on-the-way',
-    orderedAt: new Date(Date.now() - 35 * 60000), // 35 minutes ago
-    estimatedDelivery: new Date(Date.now() + 10 * 60000), // 10 minutes from now
+    orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
+    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
     deliveryAddress: {
       address: '123 Netaji Subhas Palace, Mumbai, Maharashtra 400080',
       location: { lat: 40.7580, lng: -73.9755 }
@@ -206,13 +211,13 @@ export const mockOrders = [
     id: 'order3',
     restaurant: restaurants[2],
     items: [
-      { name: 'Fettuccine Alfredo', quantity: 1, price: 16.99 },
-      { name: 'Caprese Salad', quantity: 1, price: 8.99 },
-      { name: 'Tiramisu', quantity: 1, price: 7.99 }
+      { name: 'Fettuccine Alfredo', quantity: 1, price: 16.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Fettuccine-Alfredo-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
+      { name: 'Caprese Salad', quantity: 1, price: 8.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Caprese-Salad-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
+      { name: 'Tiramisu', quantity: 1, price: 7.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Tiramisu-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' }
     ],
     status: 'ordered',
     orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
-    estimatedDelivery: new Date(Date.now() + 45 * 60000), // 45 minutes from now
+    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
     deliveryAddress: {
       address: '789 Broadway, New York, NY 10003',
       location: { lat: 40.7352, lng: -73.9911 }

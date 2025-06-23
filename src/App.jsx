@@ -10,6 +10,9 @@ import ScrollToTop from './utils/ScrollToTop.jsx'
 import OrderProvider from './Context/OrderContext.jsx';
 import CartProvider from './Context/CartContext.jsx';
 import Restaurant from './pages/Restaurant.jsx';
+import Chatbot from './components/common/Chatbot.jsx';
+import Login from './pages/Login.jsx';
+import Signup from './pages/Signup.jsx';
 import './App.css'
 
 function App() {
@@ -35,20 +38,23 @@ function App() {
     <Router>
       <OrderProvider>
         <CartProvider>
-          <ScrollToTop />
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/track/:orderId" element={<OrderTracking />} />
-                <Route path="/restaurant/:id" element={<Restaurant />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
+        <ScrollToTop />
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/track/:orderId" element={<OrderTracking />} />
+              <Route path="/restaurant/:id" element={<Restaurant />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+        <Chatbot />
         </CartProvider>
       </OrderProvider>
     </Router>

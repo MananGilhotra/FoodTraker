@@ -73,7 +73,8 @@ function About() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
-              <img src="" 
+              <img 
+                src="/Users/manangilhotra010/Downloads/FoodTraker/IMG_9992.jpeg" 
                 alt="Founder" 
                 className="rounded-xl shadow-lg"
               />
