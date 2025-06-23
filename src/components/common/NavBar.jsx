@@ -50,7 +50,6 @@ function Navbar() {
           <NavLink to="/" className={linkClasses}>Home</NavLink>
           <NavLink to="/about" className={linkClasses}>About</NavLink>
           <NavLink to="/services" className={linkClasses}>Services</NavLink>
-          <NavLink to="/blog" className={linkClasses}>Blog</NavLink>
         </div>
         
         <div className="hidden md:flex items-center space-x-4">
@@ -87,7 +86,6 @@ function Navbar() {
           <NavLink to="/" className={linkClasses}>Home</NavLink>
           <NavLink to="/about" className={linkClasses}>About</NavLink>
           <NavLink to="/services" className={linkClasses}>Services</NavLink>
-          <NavLink to="/blog" className={linkClasses}>Blog</NavLink>
           <div className="pt-2">
             <SearchBar />
           </div>

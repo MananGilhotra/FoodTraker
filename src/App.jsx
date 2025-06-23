@@ -5,7 +5,6 @@ import Footer from './components/common/Footer.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Services from './pages/Services.jsx'
-import Blog from './pages/Blog.jsx'
 import OrderTracking from './pages/OrderTracking.jsx'
 import ScrollToTop from './utils/ScrollToTop.jsx'
 import OrderProvider from './Context/OrderContext.jsx';
@@ -41,7 +40,6 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
-              <Route path="/blog" element={<Blog />} />
               <Route path="/track/:orderId" element={<OrderTracking />} />
             </Routes>
           </main>
