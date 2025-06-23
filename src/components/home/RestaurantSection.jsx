@@ -1,6 +1,10 @@
 import { restaurants } from '../../utils/mockData'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 function RestaurantSection() {
+  const [showAll, setShowAll] = useState(false)
+  const visibleRestaurants = showAll ? restaurants : restaurants.slice(0, 6)
   return (
     <section className="py-16 bg-gray-50">
       <div className="container-custom">
@@ -14,7 +18,7 @@ function RestaurantSection() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {restaurants.map((restaurant) => (
+          {visibleRestaurants.map((restaurant) => (
             <div key={restaurant.id} className="bg-white rounded-xl shadow-md overflow-hidden hover-scale">
               <div className="h-48 overflow-hidden">
                 <img 
@@ -45,18 +49,18 @@ function RestaurantSection() {
                   <span className="text-sm text-gray-600">25-35 min</span>
                 </div>
                 
-                <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                <Link to={`/restaurant/${restaurant.id}`} className="w-full block bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg text-center transition-colors duration-200">
                   View Menu
-                </button>
+                </Link>
               </div>
             </div>
           ))}
         </div>
         
         <div className="mt-12 text-center">
-          <a href="#" className="btn-outline">
-            View All Restaurants
-          </a>
+          <button onClick={() => setShowAll(s => !s)} className="btn-outline">
+            {showAll ? 'Show Less' : 'View All Restaurants'}
+          </button>
         </div>
       </div>
     </section>

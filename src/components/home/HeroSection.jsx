@@ -13,9 +13,6 @@ function HeroSection() {
               Know exactly where your food is and when it will arrive with our state-of-the-art tracking technology.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/track/order2" className="btn-primary">
-                Track Your Order
-              </Link>
               <Link to="/services" className="btn-outline">
                 Our Services
               </Link>

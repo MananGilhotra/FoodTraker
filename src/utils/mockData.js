@@ -41,7 +41,12 @@ export const restaurants = [
     location: { lat: 40.7128, lng: -74.0060 }, // NYC
     rating: 4.7,
     cuisine: 'Indian',
-    priceRange: '$$'
+    priceRange: '$$',
+    menu: [
+      { id: 'item1', name: 'Butter Chicken', description: 'Creamy tomato-based chicken curry.', price: 15.99, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/04/butter-chicken.jpg' },
+      { id: 'item2', name: 'Garlic Naan', description: 'Soft Indian bread with garlic.', price: 3.99, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Garlic-Naan-500x500.jpg' },
+      { id: 'item3', name: 'Mango Lassi', description: 'Sweet mango yogurt drink.', price: 4.99, image: 'https://www.cookwithmanali.com/wp-content/uploads/2017/05/Mango-Lassi-500x500.jpg' }
+    ]
   },
   {
     id: 'rest2',
@@ -50,7 +55,12 @@ export const restaurants = [
     location: { lat: 40.7112, lng: -74.0125 },
     rating: 4.5,
     cuisine: 'American',
-    priceRange: '$$'
+    priceRange: '$$',
+    menu: [
+      { id: 'item4', name: 'Double Cheeseburger', description: 'Two beef patties, cheese, and toppings.', price: 8.99, image: 'https://www.burgerking.in/Images/Product/cheese-burger.png' },
+      { id: 'item5', name: 'Fries (Large)', description: 'Crispy golden fries.', price: 3.99, image: 'https://www.burgerking.in/Images/Product/fries.png' },
+      { id: 'item6', name: 'Chocolate Milkshake', description: 'Rich chocolate shake.', price: 4.99, image: 'https://www.burgerking.in/Images/Product/chocolate-milkshake.png' }
+    ]
   },
   {
     id: 'rest3',
@@ -59,7 +69,90 @@ export const restaurants = [
     location: { lat: 40.7200, lng: -74.0090 },
     rating: 4.8,
     cuisine: 'Italian',
-    priceRange: '$$$'
+    priceRange: '$$$',
+    menu: [
+      { id: 'item7', name: 'Fettuccine Alfredo', description: 'Pasta in creamy Alfredo sauce.', price: 16.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Fettuccine-Alfredo-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
+      { id: 'item8', name: 'Caprese Salad', description: 'Fresh mozzarella, tomatoes, basil.', price: 8.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Caprese-Salad-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
+      { id: 'item9', name: 'Tiramisu', description: 'Classic Italian dessert.', price: 7.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Tiramisu-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' }
+    ]
+  },
+  {
+    id: 'rest4',
+    name: 'Sushi Zen',
+    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
+    location: { lat: 40.7306, lng: -73.9866 },
+    rating: 4.6,
+    cuisine: 'Japanese',
+    priceRange: '$$$',
+    menu: [
+      { id: 'item10', name: 'Salmon Sushi', description: 'Fresh salmon over rice.', price: 12.99, image: 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item11', name: 'Miso Soup', description: 'Classic Japanese soup.', price: 3.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+    ]
+  },
+  {
+    id: 'rest5',
+    name: 'Taco Fiesta',
+    image: 'https://images.unsplash.com/photo-1514512364185-4c2b67857b39?auto=format&fit=crop&w=400&q=80',
+    location: { lat: 40.7412, lng: -73.9896 },
+    rating: 4.3,
+    cuisine: 'Mexican',
+    priceRange: '$$',
+    menu: [
+      { id: 'item12', name: 'Chicken Taco', description: 'Spicy grilled chicken taco.', price: 5.99, image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item13', name: 'Guacamole', description: 'Fresh avocado dip.', price: 4.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+    ]
+  },
+  {
+    id: 'rest6',
+    name: 'Pizza Palace',
+    image: 'https://images.unsplash.com/photo-1548365328-8b849e6c7b8b?auto=format&fit=crop&w=400&q=80',
+    location: { lat: 40.7527, lng: -73.9772 },
+    rating: 4.9,
+    cuisine: 'Pizza',
+    priceRange: '$$',
+    menu: [
+      { id: 'item14', name: 'Margherita Pizza', description: 'Classic cheese and tomato.', price: 10.99, image: 'https://images.unsplash.com/photo-1548365328-8b849e6c7b8b?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item15', name: 'Pepperoni Pizza', description: 'Pepperoni and cheese.', price: 12.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+    ]
+  },
+  {
+    id: 'rest7',
+    name: 'Vegan Delight',
+    image: 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
+    location: { lat: 40.7589, lng: -73.9851 },
+    rating: 4.4,
+    cuisine: 'Vegan',
+    priceRange: '$$',
+    menu: [
+      { id: 'item16', name: 'Vegan Burger', description: 'Plant-based burger.', price: 9.99, image: 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item17', name: 'Quinoa Salad', description: 'Healthy quinoa and veggies.', price: 7.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+    ]
+  },
+  {
+    id: 'rest8',
+    name: 'Curry House',
+    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
+    location: { lat: 40.7484, lng: -73.9857 },
+    rating: 4.2,
+    cuisine: 'Indian',
+    priceRange: '$$',
+    menu: [
+      { id: 'item18', name: 'Paneer Tikka Masala', description: 'Spicy paneer curry.', price: 13.99, image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item19', name: 'Aloo Gobi', description: 'Potato and cauliflower curry.', price: 8.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+    ]
+  },
+  {
+    id: 'rest9',
+    name: 'BBQ Nation',
+    image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
+    location: { lat: 40.7549, lng: -73.9840 },
+    rating: 4.7,
+    cuisine: 'BBQ',
+    priceRange: '$$$',
+    menu: [
+      { id: 'item20', name: 'BBQ Chicken', description: 'Grilled chicken with BBQ sauce.', price: 15.99, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' },
+      { id: 'item21', name: 'Corn on the Cob', description: 'Grilled corn.', price: 4.99, image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80' }
+    ]
   }
 ]
 

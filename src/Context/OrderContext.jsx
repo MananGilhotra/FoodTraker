@@ -37,12 +37,17 @@ export default function OrderProvider({ children }) {
     }
   }
 
+  const addOrder = (order) => {
+    setOrders(prevOrders => [order, ...prevOrders]);
+  };
+
   const value = {
     orders,
     activeOrder,
     getOrder,
     trackOrder,
-    updateOrderStatus
+    updateOrderStatus,
+    addOrder
   }
   
   return (

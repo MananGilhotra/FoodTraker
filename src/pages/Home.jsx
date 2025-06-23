@@ -1,5 +1,4 @@
 import HeroSection from '../components/home/HeroSection'
-import TrackingPreview from '../components/home/TrackingPreview'
 import SellingPoints from '../components/home/SellingPoints'
 import RestaurantSection from '../components/home/RestaurantSection'
 import { useEffect } from 'react'
@@ -12,9 +11,8 @@ function Home() {
   return (
     <div>
       <HeroSection />
-      <TrackingPreview />
-      <SellingPoints />
       <RestaurantSection />
+      <SellingPoints />
       
       <section className="py-16 bg-gradient-to-b from-white to-secondary-50">
         <div className="container-custom">
@@ -81,7 +79,7 @@ function Home() {
                 </svg>
               </div>
               <p className="text-gray-600 mb-4">
-              "As a busy mom, I absolutely love being able to track our family dinner. The ETA is always spot-on, and the kids get so excited watching the delivery guy come on the map. It’s like a little game for them!"
+              "As a busy mom, I absolutely love being able to track our family dinner. The ETA is always spot-on, and the kids get so excited watching the delivery guy come on the map. It's like a little game for them!"
               </p>
               <div className="flex items-center">
                 <img 

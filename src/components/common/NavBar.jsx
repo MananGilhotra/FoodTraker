@@ -54,9 +54,6 @@ function Navbar() {
         
         <div className="hidden md:flex items-center space-x-4">
           <SearchBar />
-          <Link to="/track/order2" className="btn-primary">
-            Track Order
-          </Link>
         </div>
         
         <button 
@@ -89,9 +86,6 @@ function Navbar() {
           <div className="pt-2">
             <SearchBar />
           </div>
-          <Link to="/track/order2" className="btn-primary w-full text-center">
-            Track Order
-          </Link>
         </div>
       </div>
     </nav>
