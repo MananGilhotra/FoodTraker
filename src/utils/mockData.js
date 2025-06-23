@@ -152,49 +152,6 @@ export const getCurrentDriverLocation = (order) => {
   return order.route[progressIndex]
 }
 
-export const blogPosts = [
-  {
-    id: 'blog1',
-    title: '5 Ways to Get the Most Out of Food Delivery Apps',
-    excerpt: 'Learn how to save money and get the best service when ordering food online.',
-    image: 'https://images.pexels.com/photos/1109197/pexels-photo-1109197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    author: 'Maya Tyagi',
-    date: 'May 15, 2025',
-    readTime: '5 min read',
-    categories: ['Tips', 'Savings']
-  },
-  {
-    id: 'blog2',
-    title: 'Behind the Scenes: A Day in the Life of a Delivery Driver',
-    excerpt: "Discover what it's really like to be a food delivery driver in the gig economy.",
-    image: 'https://i.pinimg.com/736x/18/df/60/18df601f44404ea312113f75aed484d4.jpg',
-    author: 'Sunita Mehta',
-    date: 'June 2, 2025',
-    readTime: '8 min read',
-    categories: ['Stories', 'Careers']
-  },
-  {
-    id: 'blog3',
-    title: 'The Technology Behind Real-Time Food Delivery Tracking',
-    excerpt: 'A deep dive into the sophisticated systems that power modern delivery tracking.',
-    image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    author: 'Dr. Aisha Takia',
-    date: 'July 10, 2025',
-    readTime: '10 min read',
-    categories: ['Technology', 'Innovation']
-  },
-  {
-    id: 'blog4',
-    title: 'Sustainable Food Delivery: Reducing Waste and Carbon Footprint',
-    excerpt: 'How the industry is working to become more environmentally friendly.',
-    image: 'https://images.pexels.com/photos/5945559/pexels-photo-5945559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    author: 'Leena Sharma',
-    date: 'August 22, 2025',
-    readTime: '7 min read',
-    categories: ['Sustainability', 'Future']
-  }
-]
-
 // FAQ data
 export const faqData = [
   {
