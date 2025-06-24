@@ -1,21 +1,26 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
       setError('Please fill in all fields.');
       return;
     }
     setError('');
+    setLoading(true);
     // TODO: Add real signup logic
-    alert('Account created (demo)!');
+    alert('Account created');
+    setLoading(false);
+    navigate('/');
   };
 
   return (

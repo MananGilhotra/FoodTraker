@@ -61,40 +61,178 @@ function randomNearbyLocation(center, radius = 0.036) {
 
 export default function OrderTracking() {
   const { orderId } = useParams();
-  const { getOrder } = useOrder();
+  const { getOrder, updateOrderStatus } = useOrder();
   const [order, setOrder] = useState(null);
   const [driverLoc, setDriverLoc] = useState(null);
   const [progress, setProgress] = useState(0);
+  const [statusUpdateMessage, setStatusUpdateMessage] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const o = getOrder(orderId);
-    setOrder(o);
-    if (o) setDriverLoc(getCurrentDriverLocation(o));
-    let interval;
-    if (o && o.status === 'on-the-way' && o.route) {
-      interval = setInterval(() => {
-        setDriverLoc(getCurrentDriverLocation({ ...o, orderedAt: o.orderedAt, estimatedDelivery: o.estimatedDelivery, status: o.status, route: o.route }));
-      }, 5000);
+    try {
+      console.log('OrderTracking: orderId =', orderId);
+      const o = getOrder(orderId);
+      console.log('OrderTracking: order =', o);
+      
+      if (!o) {
+        console.log('OrderTracking: No order found, showing test order');
+        // Create a test order for debugging
+        const testOrder = {
+          id: 'test-order',
+          restaurant: {
+            name: 'Test Restaurant',
+            location: { lat: 28.6139, lng: 77.2090 }
+          },
+          items: [
+            { name: 'Test Item', quantity: 1, price: 10.99 }
+          ],
+          status: 'ordered',
+          orderedAt: new Date(Date.now() - 5 * 60000),
+          estimatedDelivery: new Date(Date.now() + 15 * 60000),
+          deliveryAddress: {
+            address: 'Test Address',
+            location: { lat: 28.6140, lng: 77.2091 }
+          },
+          driverName: 'Rahul Kumar',
+          driverPhone: '+91 9876543210',
+          driverPhoto: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg',
+          total: 10.99
+        };
+        setOrder(testOrder);
+      } else {
+        // Ensure driver is assigned if not already
+        if (!o.driverName || o.driverName === 'Not assigned') {
+          const drivers = ['Rahul Kumar', 'Amit Singh', 'Vikram Patel', 'Rajesh Sharma', 'Suresh Verma'];
+          const randomDriver = drivers[Math.floor(Math.random() * drivers.length)];
+          o.driverName = randomDriver;
+          o.driverPhone = '+91 ' + Math.floor(Math.random() * 9000000000) + 1000000000;
+          o.driverPhoto = 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+        }
+        setOrder(o);
+      }
+      setLoading(false);
+    } catch (err) {
+      console.error('OrderTracking: Error loading order:', err);
+      setError(err.message);
+      setLoading(false);
     }
-    return () => clearInterval(interval);
   }, [orderId, getOrder]);
+
+  // Automatic status progression
+  useEffect(() => {
+    if (!order) return;
+
+    const checkAndUpdateStatus = () => {
+      const now = Date.now();
+      const orderTime = new Date(order.orderedAt).getTime();
+      const elapsedMinutes = (now - orderTime) / 60000;
+
+      let newStatus = order.status;
+
+      // Auto-progress status based on time
+      if (order.status === 'ordered' && elapsedMinutes >= 1) {
+        newStatus = 'preparing';
+      } else if (order.status === 'preparing' && elapsedMinutes >= 2) {
+        newStatus = 'on-the-way';
+      } else if (order.status === 'on-the-way' && elapsedMinutes >= 12) {
+        newStatus = 'delivered';
+      }
+
+      // Update status if it changed
+      if (newStatus !== order.status) {
+        updateOrderStatus(orderId, newStatus);
+        setOrder(prev => ({ ...prev, status: newStatus }));
+      }
+    };
+
+    const interval = setInterval(checkAndUpdateStatus, 30000);
+    checkAndUpdateStatus();
+    return () => clearInterval(interval);
+  }, [order, orderId, updateOrderStatus]);
+
+  // Calculate route early to avoid scope issues
+  const calculateRoute = (order) => {
+    if (!order) return [];
+    
+    try {
+      const restaurantLoc = order.restaurant.location;
+      let deliveryLoc = order.deliveryAddress.location;
+      
+      // If delivery location is the same as restaurant, use a random nearby location for map display only
+      if (deliveryLoc.lat === restaurantLoc.lat && deliveryLoc.lng === restaurantLoc.lng) {
+        deliveryLoc = randomNearbyLocation(restaurantLoc, 0.036); // ~4km
+      }
+      
+      // Always generate a route for the map between restaurant and delivery location
+      return (order.route && order.route.length > 1)
+        ? order.route
+        : generateFakeRoute(restaurantLoc, deliveryLoc);
+    } catch (err) {
+      console.error('Error calculating route:', err);
+      return [];
+    }
+  };
+
+  const route = calculateRoute(order);
+
+  // Animate driver location along the route based on progress
+  useEffect(() => {
+    if (!order || !route || route.length < 2) return;
+    const updateDriverLoc = () => {
+      try {
+        const total = new Date(order.estimatedDelivery) - new Date(order.orderedAt);
+        const elapsed = Date.now() - new Date(order.orderedAt);
+        const prog = Math.min(1, elapsed / total);
+        setProgress(prog);
+        // Interpolate position along the route
+        const idx = Math.floor(prog * (route.length - 1));
+        const nextIdx = Math.min(idx + 1, route.length - 1);
+        const frac = (prog * (route.length - 1)) - idx;
+        const p1 = route[idx];
+        const p2 = route[nextIdx];
+        const lat = p1.lat + (p2.lat - p1.lat) * frac;
+        const lng = p1.lng + (p2.lng - p1.lng) * frac;
+        setDriverLoc({ lat, lng });
+      } catch (err) {
+        console.error('Error updating driver location:', err);
+      }
+    };
+    updateDriverLoc();
+    const interval = setInterval(updateDriverLoc, 2000);
+    return () => clearInterval(interval);
+  }, [order, route]);
 
   useEffect(() => {
     if (!order) return;
-    const total = new Date(order.estimatedDelivery) - new Date(order.orderedAt);
-    const elapsed = Date.now() - new Date(order.orderedAt);
-    setProgress(Math.min(1, elapsed / total));
-    const timer = setInterval(() => {
+    try {
+      const total = new Date(order.estimatedDelivery) - new Date(order.orderedAt);
       const elapsed = Date.now() - new Date(order.orderedAt);
       setProgress(Math.min(1, elapsed / total));
-    }, 10000);
-    return () => clearInterval(timer);
+      const timer = setInterval(() => {
+        const elapsed = Date.now() - new Date(order.orderedAt);
+        setProgress(Math.min(1, elapsed / total));
+      }, 10000);
+      return () => clearInterval(timer);
+    } catch (err) {
+      console.error('Error updating progress:', err);
+    }
   }, [order]);
 
-  if (!order) {
+  if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <h2 className="text-2xl font-bold mb-2">Order not found</h2>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+        <p className="mt-4 text-gray-600">Loading order details...</p>
+      </div>
+    );
+  }
+
+  if (error || !order) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <h2 className="text-2xl font-bold mb-2 text-red-600">Order not found</h2>
+        <p className="text-gray-600 mb-4">{error || 'The order you are looking for does not exist.'}</p>
         <Link to="/" className="text-primary-500 underline">Back to Home</Link>
       </div>
     );
@@ -109,6 +247,10 @@ export default function OrderTracking() {
   const currentStep = steps.findIndex(s => s.key === order.status);
   const eta = Math.max(0, Math.round((new Date(order.estimatedDelivery) - Date.now()) / 60000));
 
+  // Calculate time elapsed since order
+  const orderTime = new Date(order.orderedAt).getTime();
+  const elapsedMinutes = Math.floor((Date.now() - orderTime) / 60000);
+
   // Map points
   const restaurantLoc = order.restaurant.location;
   // If delivery location is the same as restaurant, use a random nearby location for map display only
@@ -116,10 +258,6 @@ export default function OrderTracking() {
   if (deliveryLoc.lat === restaurantLoc.lat && deliveryLoc.lng === restaurantLoc.lng) {
     deliveryLoc = randomNearbyLocation(restaurantLoc, 0.036); // ~4km
   }
-  // Always generate a route for the map between restaurant and delivery location
-  const route = (order.route && order.route.length > 1)
-    ? order.route
-    : generateFakeRoute(restaurantLoc, deliveryLoc);
 
   // Calculate the original expected delivery window (10-15 min)
   let expectedWindow = '';
@@ -133,6 +271,9 @@ export default function OrderTracking() {
     }
   }
 
+  console.log('OrderTracking: Rendering with order =', order);
+  console.log('OrderTracking: route =', route);
+
   return (
     <div className="w-full min-h-[80vh] flex justify-center bg-gray-50 py-8 px-2">
       <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8">
@@ -142,16 +283,71 @@ export default function OrderTracking() {
             <h1 className="text-2xl font-bold text-green-600">Track your order</h1>
             <Link to="/" className="text-sm text-primary-500 underline">Back to Home</Link>
           </div>
-          {/* Status Timeline */}
-          <div className="flex items-center justify-between mb-4">
-            {steps.map((step, i) => (
-              <div key={step.key} className="flex flex-col items-center flex-1">
-                <div className={`w-10 h-10 flex items-center justify-center rounded-full text-2xl font-bold mb-1 border-2 ${i <= currentStep ? 'bg-green-500 text-white border-green-500' : 'bg-gray-100 text-gray-400 border-gray-300'}`}>{step.icon}</div>
-                <span className={`text-xs ${i <= currentStep ? 'text-green-600 font-semibold' : 'text-gray-400'}`}>{step.label}</span>
-                {i < steps.length - 1 && <div className={`h-1 w-full bg-gradient-to-r ${i < currentStep ? 'from-green-500 to-green-500' : 'from-gray-300 to-gray-300'} mt-2`}></div>}
-              </div>
-            ))}
+          
+          {/* Time Elapsed Info */}
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+            <div className="text-sm text-blue-800 text-center">
+              <span className="font-semibold">Time elapsed:</span> {Math.floor((Date.now() - new Date(order.orderedAt).getTime()) / 60000)} minutes
+            </div>
+            <div className="text-xs text-blue-600 text-center mt-1">
+              Order placed at {new Date(order.orderedAt).toLocaleTimeString()}
+            </div>
           </div>
+          
+          {/* Delivery Progress Bar */}
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm font-medium text-gray-700">Delivery Progress</span>
+              <span className="text-sm text-gray-500">{Math.round(progress * 100)}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className="bg-green-500 h-2 rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${Math.round(progress * 100)}%` }}
+              ></div>
+            </div>
+            <div className="text-xs text-gray-500 mt-1 text-center">
+              {eta > 0 ? `${eta} minutes remaining` : 'Almost there!'}
+            </div>
+          </div>
+          
+          {/* Status Timeline */}
+          <div className="relative">
+            <div className="flex items-center justify-between mb-6">
+              {steps.map((step, i) => (
+                <div key={step.key} className="flex flex-col items-center flex-1 relative">
+                  <div className={`w-12 h-12 flex items-center justify-center rounded-full text-2xl font-bold mb-2 border-4 transition-all duration-300 ${
+                    i < currentStep 
+                      ? 'bg-green-500 text-white border-green-500 shadow-lg' 
+                      : i === currentStep 
+                      ? 'bg-blue-500 text-white border-blue-500 shadow-lg animate-pulse' 
+                      : 'bg-gray-100 text-gray-400 border-gray-300'
+                  }`}>
+                    {step.icon}
+                  </div>
+                  <span className={`text-sm font-medium text-center ${i <= currentStep ? 'text-green-600' : 'text-gray-400'}`}>
+                    {step.label}
+                  </span>
+                  {i < steps.length - 1 && (
+                    <div className={`absolute top-6 left-1/2 w-full h-1 transition-all duration-500 ${
+                      i < currentStep ? 'bg-green-500' : 'bg-gray-300'
+                    }`} style={{ transform: 'translateX(50%)' }}></div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Current Status Display */}
+          <div className="text-center bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <div className="text-lg font-semibold text-blue-800">
+              Current Status: {steps[currentStep]?.label}
+            </div>
+            <div className="text-sm text-blue-600 mt-1">
+              {steps[currentStep]?.icon} {steps[currentStep]?.label}
+            </div>
+          </div>
+          
           {/* Map and Info */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1 min-w-[220px]">

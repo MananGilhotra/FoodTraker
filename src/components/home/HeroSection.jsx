@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom'
+import { useOrder } from '../../Context/OrderContext'
+import { useNavigate } from 'react-router-dom'
 
 function HeroSection() {
+  const { orders } = useOrder();
+  const navigate = useNavigate();
+  const latestOrder = orders && orders.length > 0 ? orders[0] : null;
   return (
     <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-b from-primary-50 to-white">
       <div className="container-custom">
@@ -16,6 +21,14 @@ function HeroSection() {
               <Link to="/services" className="btn-outline">
                 Our Services
               </Link>
+              {latestOrder && (
+                <button
+                  className="btn-primary"
+                  onClick={() => navigate(`/track/${latestOrder.id}`)}
+                >
+                  Track Order
+                </button>
+              )}
             </div>
             
             <div className="grid grid-cols-3 gap-4 mt-12">

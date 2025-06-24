@@ -24,8 +24,6 @@ export default function Restaurant() {
   const { addOrder } = useOrder();
   const navigate = useNavigate();
   const [placing, setPlacing] = useState(false);
-  const [address, setAddress] = useState('');
-  const [addressError, setAddressError] = useState('');
 
   if (!restaurant) {
     return <div className="pt-28 pb-16 text-center">Restaurant not found.</div>;
@@ -33,11 +31,6 @@ export default function Restaurant() {
 
   const handlePlaceOrder = async () => {
     if (cart.items.length === 0) return;
-    if (!address.trim()) {
-      setAddressError('Please enter a delivery address.');
-      return;
-    }
-    setAddressError('');
     setPlacing(true);
     // Generate a unique orderId
     const orderId = 'order' + Date.now();
@@ -59,7 +52,6 @@ export default function Restaurant() {
       orderedAt,
       estimatedDelivery: new Date(orderedAt.getTime() + randomMinutes * 60000), // 10-15 min from now
       deliveryAddress: {
-        address: address.trim(),
         location: deliveryLocation
       },
       driverName: 'Not assigned',
@@ -147,19 +139,6 @@ export default function Restaurant() {
                 <div className="flex justify-between"><span>Tax (8%)</span><span>₹{cart.tax.toFixed(2)}</span></div>
                 <div className="flex justify-between"><span>Delivery</span><span>₹{cart.delivery.toFixed(2)}</span></div>
                 <div className="flex justify-between font-bold text-lg"><span>Total</span><span>₹{cart.total.toFixed(2)}</span></div>
-              </div>
-              <div className="mt-4">
-                <label className="block font-medium mb-1" htmlFor="delivery-address">Delivery Address</label>
-                <input
-                  id="delivery-address"
-                  type="text"
-                  className="w-full border rounded px-3 py-2 mb-1 focus:outline-none focus:ring focus:border-primary-500"
-                  placeholder="Enter your delivery address"
-                  value={address}
-                  onChange={e => setAddress(e.target.value)}
-                  disabled={placing}
-                />
-                {addressError && <div className="text-red-500 text-sm mb-2">{addressError}</div>}
               </div>
               <button className="btn-secondary w-full mt-4" onClick={clearCart}>Clear Cart</button>
               <button className="btn-primary w-full mt-2" disabled={placing} onClick={handlePlaceOrder}>

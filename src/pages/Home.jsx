@@ -2,17 +2,34 @@ import HeroSection from '../components/home/HeroSection'
 import SellingPoints from '../components/home/SellingPoints'
 import RestaurantSection from '../components/home/RestaurantSection'
 import { useEffect } from 'react'
+import { useOrder } from '../Context/OrderContext'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
   useEffect(() => {
     document.title = 'FoodTracker - Real-Time Food Delivery Tracking'
   }, [])
-  
+  const { orders } = useOrder();
+  const navigate = useNavigate();
+  // Get the most recent order (if any)
+  const latestOrder = orders && orders.length > 0 ? orders[0] : null;
+
   return (
     <div>
       <HeroSection />
       <RestaurantSection />
       <SellingPoints />
+      {/* Track Order Button */}
+      {latestOrder && (
+        <div className="flex justify-center mt-8">
+          <button
+            className="btn-primary px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:bg-primary-600 transition"
+            onClick={() => navigate(`/track/${latestOrder.id}`)}
+          >
+            Track Order
+          </button>
+        </div>
+      )}
       
       <section className="py-16 bg-gradient-to-b from-white to-secondary-50">
         <div className="container-custom">

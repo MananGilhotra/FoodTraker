@@ -177,8 +177,8 @@ export const mockOrders = [
       address: '123 Main St, New York, NY 10001',
       location: { lat: 40.7282, lng: -73.9942 }
     },
-    driverName: 'Manan Gilhotra',
-    driverPhone: '+91 6969696969',
+    driverName: 'Rahul Kumar',
+    driverPhone: '+91 9876543210',
     driverPhoto: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     total: 34.95,
     route: generateFakeRoute(
@@ -202,10 +202,14 @@ export const mockOrders = [
       address: '123 Netaji Subhas Palace, Mumbai, Maharashtra 400080',
       location: { lat: 40.7580, lng: -73.9755 }
     },
-    driverName: 'Manan Gilhotra',
-    driverPhone: '91 1234567890',
+    driverName: 'Amit Singh',
+    driverPhone: '+91 8765432109',
     driverPhoto: 'https://t4.ftcdn.net/jpg/01/79/99/99/360_F_179999999_1mzWKikF52md2KxaKIh2yPC47A365Jtx.jpg',
-    total: 45.95
+    total: 45.95,
+    route: generateFakeRoute(
+      restaurants[1].location,
+      { lat: 40.7580, lng: -73.9755 }
+    )
   },
   {
     id: 'order3',
@@ -222,10 +226,14 @@ export const mockOrders = [
       address: '789 Broadway, New York, NY 10003',
       location: { lat: 40.7352, lng: -73.9911 }
     },
-    driverName: 'Not assigned',
-    driverPhone: '',
-    driverPhoto: '',
-    total: 33.97
+    driverName: 'Vikram Patel',
+    driverPhone: '+91 7654321098',
+    driverPhoto: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    total: 33.97,
+    route: generateFakeRoute(
+      restaurants[2].location,
+      { lat: 40.7352, lng: -73.9911 }
+    )
   }
 ]
 
