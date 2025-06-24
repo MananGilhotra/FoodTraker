@@ -442,9 +442,29 @@ export default function OrderTracking() {
                 </li>
               ))}
             </ul>
-            <div className="flex justify-between font-bold text-gray-800 border-t pt-2 text-lg">
-              <span>Total</span>
-              <span>₹{order.total.toFixed(2)}</span>
+            <div className="border-t pt-2 text-sm space-y-1">
+              <div className="flex justify-between"><span>Subtotal</span><span>₹{(order.items.reduce((sum, item) => sum + item.price * item.quantity, 0)).toFixed(2)}</span></div>
+              <div className="flex justify-between"><span>Tax (8%)</span><span>₹{((order.items.reduce((sum, item) => sum + item.price * item.quantity, 0)) * 0.08).toFixed(2)}</span></div>
+              <div className="flex justify-between"><span>Delivery</span><span>₹2.99</span></div>
+              <div className="flex justify-between font-bold text-lg"><span>Total</span><span>₹{order.total.toFixed(2)}</span></div>
+            </div>
+            <div className="mt-4 border-t pt-3">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-semibold text-gray-700">Payment Method:</span>
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded bg-gray-100 text-gray-700 text-sm font-medium">
+                  {order.paymentMethod === 'upi' ? (
+                    <>
+                      <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path></svg>
+                      UPI
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 9V7a5 5 0 00-10 0v2a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2v-7a2 2 0 00-2-2z"></path></svg>
+                      Cash on Delivery
+                    </>
+                  )}
+                </span>
+              </div>
             </div>
           </div>
         </div>

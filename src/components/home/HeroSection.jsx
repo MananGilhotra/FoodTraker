@@ -50,7 +50,7 @@ function HeroSection() {
           <div className="md:w-1/2 relative">
             <div className="relative overflow-hidden rounded-3xl shadow-2xl hover-scale">
               <img 
-                src="https://images.pexels.com/photos/6963695/pexels-photo-6963695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                src="https://thumbs.dreamstime.com/b/food-delivery-app-shown-green-background-variety-items-317477721.jpg" 
                 alt="Food delivery tracking app" 
                 className="w-full h-auto"
               />

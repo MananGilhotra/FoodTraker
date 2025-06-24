@@ -8,7 +8,7 @@ export function useOrder() {
 }
 
 export default function OrderProvider({ children }) {
-  const [orders, setOrders] = useState(mockOrders)
+  const [orders, setOrders] = useState([])
   const [activeOrder, setActiveOrder] = useState(null)
   
   const getOrder = (orderId) => {

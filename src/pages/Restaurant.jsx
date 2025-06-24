@@ -24,6 +24,7 @@ export default function Restaurant() {
   const { addOrder } = useOrder();
   const navigate = useNavigate();
   const [placing, setPlacing] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('cod');
 
   if (!restaurant) {
     return <div className="pt-28 pb-16 text-center">Restaurant not found.</div>;
@@ -58,7 +59,8 @@ export default function Restaurant() {
       driverPhone: '',
       driverPhoto: '',
       total: cart.total,
-      route: generateFakeRoute(restaurant.location, deliveryLocation)
+      route: generateFakeRoute(restaurant.location, deliveryLocation),
+      paymentMethod: paymentMethod === 'upi' ? 'upi' : 'cod'
     };
     // Add order to context
     addOrder(order);
@@ -141,6 +143,34 @@ export default function Restaurant() {
                 <div className="flex justify-between font-bold text-lg"><span>Total</span><span>₹{cart.total.toFixed(2)}</span></div>
               </div>
               <button className="btn-secondary w-full mt-4" onClick={clearCart}>Clear Cart</button>
+              {/* Payment Method Selection */}
+              <div className="mt-4">
+                <label className="block font-medium mb-1">Payment Method</label>
+                <div className="flex gap-4 mb-2">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="payment-method"
+                      value="cod"
+                      checked={paymentMethod === 'cod'}
+                      onChange={() => setPaymentMethod('cod')}
+                      className="accent-primary-500"
+                    />
+                    <span>Cash on Delivery</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="payment-method"
+                      value="upi"
+                      checked={paymentMethod === 'upi'}
+                      onChange={() => setPaymentMethod('upi')}
+                      className="accent-primary-500"
+                    />
+                    <span>UPI</span>
+                  </label>
+                </div>
+              </div>
               <button className="btn-primary w-full mt-2" disabled={placing} onClick={handlePlaceOrder}>
                 {placing ? 'Placing Order...' : 'Place Order'}
               </button>

@@ -241,9 +241,6 @@ function Services() {
           </div>
           
           <div className="mt-12 text-center">
-            <Link to="/track/order2" className="btn-primary">
-              Try a Demo
-            </Link>
           </div>
         </div>
       </section>
@@ -298,7 +295,7 @@ function Services() {
           
           <div className="mt-12 text-center">
             <p className="text-gray-600 mb-4">Still have questions?</p>
-            <a href="#" className="btn-outline">
+            <a href="#" className="btn-outline" onClick={(e) => { e.preventDefault(); window.openContactModal && window.openContactModal(); }}>
               Contact Support
             </a>
           </div>
@@ -315,10 +312,10 @@ function Services() {
               Join thousands of satisfied customers, restaurants, and drivers benefiting from real-time tracking.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="#" className="btn bg-white text-primary-500 hover:bg-gray-100">
+              <a href="/signup" className="btn bg-white text-primary-500 hover:bg-gray-100">
                 Sign Up Now
               </a>
-              <a href="#" className="btn border-2 border-white text-white hover:bg-white/10">
+              <a href="#" className="btn border-2 border-white text-white hover:bg-white/10" onClick={(e) => { e.preventDefault(); window.openContactModal && window.openContactModal(); }}>
                 Contact Sales
               </a>
             </div>

@@ -37,8 +37,7 @@ function Footer() {
               <li><Link to="/" className="text-gray-300 hover:text-primary-500 transition-colors">Home</Link></li>
               <li><Link to="/about" className="text-gray-300 hover:text-primary-500 transition-colors">About Us</Link></li>
               <li><Link to="/services" className="text-gray-300 hover:text-primary-500 transition-colors">Services</Link></li>
-              <li><Link to="/blog" className="text-gray-300 hover:text-primary-500 transition-colors">Blog</Link></li>
-              <li><a href="#" className="text-gray-300 hover:text-primary-500 transition-colors">Contact</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-primary-500 transition-colors" onClick={(e) => { e.preventDefault(); window.openContactModal && window.openContactModal(); }}>Contact</a></li>
             </ul>
           </div>
           

@@ -41,11 +41,11 @@ export const restaurants = [
     location: { lat: 28.6139, lng: 77.2090 }, // Delhi
     rating: 4.7,
     cuisine: 'Indian',
-    priceRange: '$$',
+    priceRange: '',
     menu: [
-      { id: 'item1', name: 'Butter Chicken', description: 'Creamy tomato-based chicken curry.', price: 350, image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/04/butter-chicken.jpg' },
-      { id: 'item2', name: 'Garlic Naan', description: 'Soft Indian bread with garlic.', price: 320, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Garlic-Naan-500x500.jpg' },
-      { id: 'item3', name: 'Mango Lassi', description: 'Sweet mango yogurt drink.', price: 310, image: 'https://www.cookwithmanali.com/wp-content/uploads/2017/05/Mango-Lassi-500x500.jpg' }
+      { id: 'item1', name: 'Butter Chicken', description: 'Creamy tomato-based chicken curry.', price: 350, image: 'https://static01.nyt.com/images/2024/10/29/multimedia/Butter-Chickenrex-tbvz/Butter-Chickenrex-tbvz-mediumSquareAt3X.jpg' },
+      { id: 'item2', name: 'Garlic Naan', description: 'Soft Indian bread with garlic.', price: 320, image: 'https://hostthetoast.com/wp-content/uploads/2018/08/naan-202-320x320-1.jpg' },
+      { id: 'item3', name: 'Mango Lassi', description: 'Sweet mango yogurt drink.', price: 310, image: 'https://www.midwestliving.com/thmb/2n9egOlUYE0dnPxJoHYY7disquI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/KeyIngredient_MangoLassi_BP_1019_preview-0bdf9f28d35043748efaa9fd1c7b806c.jpg' }
     ]
   },
   {
@@ -55,12 +55,12 @@ export const restaurants = [
     location: { lat: 19.0760, lng: 72.8777 }, // Mumbai
     rating: 4.5,
     cuisine: 'American',
-    priceRange: '$$',
+    priceRange: '',
     menu: [
-      { id: 'item4', name: 'Double Cheeseburger', description: 'Two beef patties, cheese, and toppings.', price: 399, image: 'https://www.burgerking.in/Images/Product/cheese-burger.png' },
-      { id: 'item5', name: 'Fries (Large)', description: 'Crispy golden fries.', price: 320, image: 'https://www.burgerking.in/Images/Product/fries.png' },
-      { id: 'item6', name: 'Chocolate Milkshake', description: 'Rich chocolate shake.', price: 350, image: 'https://www.burgerking.in/Images/Product/chocolate-milkshake.png' },
-      { id: 'item20', name: 'Coke (Large)', description: 'Chilled Coca-Cola.', price: 310, image: 'https://www.burgerking.in/Images/Product/coke.png' }
+      { id: 'item4', name: 'Double Cheeseburger', description: 'Two beef patties, cheese, and toppings.', price: 399, image: 'https://www.farmerboys.com/images/menu/big-cheese.jpg' },
+      { id: 'item5', name: 'Fries (Large)', description: 'Crispy golden fries.', price: 320, image: 'https://compote.slate.com/images/c72f30b4-4e25-46dc-b1f4-b6a7063b3d56.jpeg?crop=1558%2C1039%2Cx0%2Cy0' },
+      { id: 'item6', name: 'Chocolate Milkshake', description: 'Rich chocolate shake.', price: 350, image: 'https://breadsandsweets.com/wp-content/uploads/2022/07/chocolate-milkshake-sq-1-of-1.jpg' },
+      { id: 'item20', name: 'Coke (Large)', description: 'Chilled Coca-Cola.', price: 310, image: 'https://media-order.bkdelivery.co.id/thumb/product_photo/2023/3/20/nxych6c6q5ejwfcgpbbmiu_product_details.jpg' }
     ]
   },
   {
@@ -70,89 +70,89 @@ export const restaurants = [
     location: { lat: 12.9716, lng: 77.5946 }, // Bangalore
     rating: 4.8,
     cuisine: 'Italian',
-    priceRange: '$$$',
+    priceRange: '',
     menu: [
-      { id: 'item7', name: 'Fettuccine Alfredo', description: 'Pasta in creamy Alfredo sauce.', price: 420, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Fettuccine-Alfredo-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
-      { id: 'item8', name: 'Caprese Salad', description: 'Fresh mozzarella, tomatoes, basil.', price: 350, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Caprese-Salad-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
-      { id: 'item9', name: 'Tiramisu', description: 'Classic Italian dessert.', price: 360, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Tiramisu-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' }
+      { id: 'item7', name: 'Fettuccine Alfredo', description: 'Pasta in creamy Alfredo sauce.', price: 420, image: 'https://cookingwithcassandra.com/wp-content/uploads/2022/10/Copy-of-Copy-of-DSC03750-2-scaled.jpg' },
+      { id: 'item8', name: 'Caprese Salad', description: 'Fresh mozzarella, tomatoes, basil.', price: 350, image: 'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2019/07/Caprese-Salad-2-2.jpg' },
+      { id: 'item9', name: 'Tiramisu', description: 'Classic Italian dessert.', price: 360, image: 'https://mediterraneantaste.com/wp-content/uploads/2023/11/tiramisu-4583-500x500.jpg' }
     ]
   },
   {
     id: 'rest4',
     name: 'Sushi Zen',
-    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
+    image: 'https://s3-media0.fl.yelpcdn.com/bphoto/SwW5Yv2VnJ32x2TQ4niI2w/258s.jpg',
     location: { lat: 22.5726, lng: 88.3639 }, // Kolkata
     rating: 4.6,
     cuisine: 'Japanese',
-    priceRange: '$$$',
+    priceRange: '',
     menu: [
-      { id: 'item10', name: 'Salmon Sushi', description: 'Fresh salmon over rice.', price: 450, image: 'https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item11', name: 'Miso Soup', description: 'Classic Japanese soup.', price: 320, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item10', name: 'Salmon Sushi', description: 'Fresh salmon over rice.', price: 450, image: 'https://www.kikkoman.eu/fileadmin/_processed_/0/f/csm_1025-recipe-page-Spicy-tuna-and-salmon-rolls_desktop_43b394c33d.jpg' },
+      { id: 'item11', name: 'Miso Soup', description: 'Classic Japanese soup.', price: 320, image: 'https://thestayathomechef.com/wp-content/uploads/2020/04/Miso-Soup-2-scaled.jpg' }
     ]
   },
   {
     id: 'rest5',
     name: 'Taco Fiesta',
-    image: 'https://images.unsplash.com/photo-1514512364185-4c2b67857b39?auto=format&fit=crop&w=400&q=80',
+    image: 'https://s3-media0.fl.yelpcdn.com/bphoto/MQftiZlRhzqe08unb1uveA/348s.jpg',
     location: { lat: 23.0225, lng: 72.5714 }, // Ahmedabad
     rating: 4.3,
     cuisine: 'Mexican',
-    priceRange: '$$',
+    priceRange: '',
     menu: [
-      { id: 'item12', name: 'Chicken Taco', description: 'Spicy grilled chicken taco.', price: 350, image: 'https://images.unsplash.com/photo-1514512364185-4c2b67857b39?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item13', name: 'Guacamole', description: 'Fresh avocado dip.', price: 320, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item12', name: 'Chicken Taco', description: 'Spicy grilled chicken taco.', price: 350, image: 'https://littlechefwithin.com/wp-content/uploads/2024/01/Shredded-Chicken-Tacos-Little-Chef-Within.jpg' },
+      { id: 'item13', name: 'Guacamole', description: 'Fresh avocado dip.', price: 320, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoVG5MgOuVztIcFwHyXFpX9CsewCUHV3XxWg&s' }
     ]
   },
   {
     id: 'rest6',
     name: 'Pizza Palace',
-    image: 'https://images.unsplash.com/photo-1548365328-8b849e6c7b8b?auto=format&fit=crop&w=400&q=80',
+    image: 'https://content.jdmagicbox.com/v2/comp/delhi/l7/011pxx11.xx11.180222115026.k8l7/catalogue/da-pizza-palace-shastri-nagar-n-delhi-pizza-outlets-1mz5boc85g.jpg',
     location: { lat: 18.5204, lng: 73.8567 }, // Pune
     rating: 4.9,
     cuisine: 'Pizza',
-    priceRange: '$$',
+    priceRange: '',
     menu: [
-      { id: 'item14', name: 'Margherita Pizza', description: 'Classic cheese and tomato.', price: 399, image: 'https://images.unsplash.com/photo-1548365328-8b849e6c7b8b?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item15', name: 'Pepperoni Pizza', description: 'Pepperoni and cheese.', price: 420, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item14', name: 'Margherita Pizza', description: 'Classic cheese and tomato.', price: 399, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1bdKKaTySsc4t8ahzTXQIG87Ls_J8ph907w&s' },
+      { id: 'item15', name: 'Pepperoni Pizza', description: 'Pepperoni and cheese.', price: 420, image: 'https://cdn11.bigcommerce.com/s-5ljyj9oebs/images/stencil/600x600/products/9449/31939/P111023181554_1__26792.1722540163.jpg?c=2' }
     ]
   },
   {
     id: 'rest7',
     name: 'Vegan Delight',
-    image: 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80',
+    image: 'https://www.ipohecho.com.my/wp-content/uploads/2021/10/VeganDelights-2.jpg',
     location: { lat: 26.9124, lng: 75.7873 }, // Jaipur
     rating: 4.4,
     cuisine: 'Vegan',
-    priceRange: '$$',
+    priceRange: '',
     menu: [
-      { id: 'item16', name: 'Vegan Burger', description: 'Plant-based burger.', price: 350, image: 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80' },
-      { id: 'item17', name: 'Quinoa Salad', description: 'Healthy quinoa and veggies.', price: 320, image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80' }
+      { id: 'item16', name: 'Vegan Burger', description: 'Plant-based burger.', price: 350, image: 'https://images.ctfassets.net/qu53tdnhexvd/VkS6PdhsxZDX3fbtebFhG/beda70c3f440d8e7f0f069ee0ecfe229/Vegan-burger-1200-x-600.jpg?w=1080&h=1080' },
+      { id: 'item17', name: 'Quinoa Salad', description: 'Healthy quinoa and veggies.', price: 320, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ-zp6yy1BqD4vu8YGdJIFa9ea5IwzmoNRNw&s' }
     ]
   },
   {
     id: 'rest8',
     name: 'Curry House',
-    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80',
+    image: 'https://ca-times.brightspotcdn.com/dims4/default/10e02ca/2147483647/strip/false/crop/4032x3024+0+0/resize/1486x1115!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F9c%2Fb0%2F83a0766646cc88a1a5b07a7e7c36%2Fimg-9348.jpg',
     location: { lat: 17.3850, lng: 78.4867 }, // Hyderabad
     rating: 4.2,
     cuisine: 'Indian',
-    priceRange: '$$',
+    priceRange: '',
     menu: [
-      { id: 'item18', name: 'Paneer Tikka Masala', description: 'Spicy paneer curry.', price: 350, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Paneer-Tikka-Masala.jpg' },
-      { id: 'item19', name: 'Aloo Gobi', description: 'Potato and cauliflower curry.', price: 320, image: 'https://www.cookwithmanali.com/wp-content/uploads/2018/05/Aloo-Gobi.jpg' }
+      { id: 'item18', name: 'Paneer Tikka Masala', description: 'Spicy paneer curry.', price: 350, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj_w-NpRCnX_t4ro-6LXLqPPAQA9F_VQljbQ&s' },
+      { id: 'item19', name: 'Aloo Gobi', description: 'Potato and cauliflower curry.', price: 320, image: 'https://niksharmacooks.com/wp-content/uploads/2022/11/AlooGobiDSC_5234.jpg' }
     ]
   },
   {
     id: 'rest9',
     name: 'BBQ Nation',
-    image: 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTNj8dIbAMLCUm3sQScQwMHMmkOYubP5TXnw&s',
     location: { lat: 13.0827, lng: 80.2707 }, // Chennai
     rating: 4.7,
     cuisine: 'BBQ',
-    priceRange: '$$$',
+    priceRange: '',
     menu: [
-      { id: 'item20', name: 'BBQ Chicken', description: 'Grilled chicken with BBQ sauce.', price: 420, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-BBQ-Chicken-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' },
-      { id: 'item21', name: 'Corn on the Cob', description: 'Grilled corn.', price: 350, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Grilled-Corn-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' }
+      { id: 'item20', name: 'BBQ Chicken', description: 'Grilled chicken with BBQ sauce.', price: 420, image: 'https://res.cloudinary.com/hksqkdlah/image/upload/c_fill,dpr_2.0,f_auto,fl_lossy.progressive.strip_profile,g_faces:auto,h_368,q_auto:low/SFS_Oven-Roasted-BBQ-Chicken_517_qwhqeq' },
+      { id: 'item21', name: 'Corn on the Cob', description: 'Grilled corn.', price: 350, image: 'https://www.allrecipes.com/thmb/y2Vdq6vvlyhfeq85knABr4vaUKA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/266396-air-fryer-corn-on-the-cobb-GOLDMAN-R311235-4x3-2314-c4a11e4b9e484245b818c8eab988e717.jpg' }
     ]
   }
 ]

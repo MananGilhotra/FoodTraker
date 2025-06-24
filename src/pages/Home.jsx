@@ -20,7 +20,14 @@ function Home() {
       <RestaurantSection />
       <SellingPoints />
       {/* Track Order Button */}
-      {latestOrder && (
+      {!latestOrder ? (
+        <div className="flex justify-center mt-8">
+          <button className="btn-primary px-8 py-3 text-lg font-semibold rounded-full shadow-lg opacity-50 cursor-not-allowed" disabled>
+            Track Order
+          </button>
+          <span className="ml-4 text-gray-500 text-base flex items-center">No orders yet</span>
+        </div>
+      ) : (
         <div className="flex justify-center mt-8">
           <button
             className="btn-primary px-8 py-3 text-lg font-semibold rounded-full shadow-lg hover:bg-primary-600 transition"
@@ -156,7 +163,7 @@ function Home() {
                 Download Our App
               </h2>
               <p className="text-lg mb-6 text-white/80">
-                Get the full FoodKhoj experience. Track your deliveries, discover new restaurants, and enjoy exclusive app-only offers.
+                Get the full FoodTracker experience. Track your deliveries, discover new restaurants, and enjoy exclusive app-only offers.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a href="#" className="bg-black hover:bg-gray-900 text-white rounded-lg px-4 py-2 flex items-center">
@@ -188,7 +195,7 @@ function Home() {
               <div className="relative">
                 <img 
                   src="https://images.pexels.com/photos/4143791/pexels-photo-4143791.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="FoodKhoj mobile app" 
+                  alt="FoodTracker mobile app" 
                   className="w-64 h-auto rounded-3xl shadow-2xl z-10 relative"
                 />
                 <div className="absolute -top-4 -right-4 bg-white text-primary-500 rounded-full p-3 shadow-lg">
