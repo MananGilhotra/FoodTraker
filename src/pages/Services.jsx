@@ -39,7 +39,7 @@ function Services() {
       description: 'Join our network of delivery professionals and enjoy a better driving experience.',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0z"></path>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path>
         </svg>
       ),
@@ -312,9 +312,9 @@ function Services() {
               Join thousands of satisfied customers, restaurants, and drivers benefiting from real-time tracking.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="/signup" className="btn bg-white text-primary-500 hover:bg-gray-100">
+              <Link to="/signup" className="btn bg-white text-primary-500 hover:bg-gray-100">
                 Sign Up Now
-              </a>
+              </Link>
               <a href="#" className="btn border-2 border-white text-white hover:bg-white/10" onClick={(e) => { e.preventDefault(); window.openContactModal && window.openContactModal(); }}>
                 Contact Sales
               </a>

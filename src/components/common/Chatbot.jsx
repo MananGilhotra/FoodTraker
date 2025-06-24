@@ -3,16 +3,16 @@ import { useState, useRef, useEffect } from 'react';
 const botAvatar = 'https://cdn-icons-png.flaticon.com/512/4712/4712035.png';
 const userAvatar = 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png';
 
-const OPENROUTER_API_KEY = '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';
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const OPENROUTER_MODEL = 'mistralai/mixtral-8x7b-instruct';
 
-async function fetchOpenRouterResponse(message) {
+async function fetchOpenRouterResponse(message, apiKey) {
+  if (!apiKey) return 'Please enter your OpenRouter API key.';
   try {
     const res = await fetch(OPENROUTER_API_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
         'HTTP-Referer': window.location.origin,
         'X-Title': 'FoodTraker Chatbot'
@@ -25,12 +25,18 @@ async function fetchOpenRouterResponse(message) {
         ]
       })
     });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('OpenRouter error:', res.status, err);
+      return `Error: ${res.status} - ${err}`;
+    }
     const data = await res.json();
     if (data.choices && data.choices[0]?.message?.content) {
       return data.choices[0].message.content.trim();
     }
     return 'Sorry, I could not get a response from the AI.';
-  } catch {
+  } catch (e) {
+    console.error('Fetch error:', e);
     return 'Sorry, there was an error connecting to the AI.';
   }
 }
@@ -42,6 +48,7 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const apiKey = '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';
   const chatRef = useRef(null);
 
   useEffect(() => {
@@ -58,7 +65,7 @@ export default function Chatbot() {
     setInput('');
     setLoading(true);
     setMessages(msgs => [...msgs, { from: 'bot', text: 'Thinking...' }]);
-    let aiText = await fetchOpenRouterResponse(userMsg.text);
+    let aiText = await fetchOpenRouterResponse(userMsg.text, apiKey);
     setMessages(msgs => [
       ...msgs.slice(0, -1),
       { from: 'bot', text: aiText }

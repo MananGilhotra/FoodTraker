@@ -55,22 +55,7 @@ function HeroSection() {
                 className="w-full h-auto"
               />
               
-              <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg">
-                <div className="flex items-center">
-                  <div className="mr-3 relative">
-                    <div className="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                      </svg>
-                    </div>
-                    <div className="absolute inset-0 bg-primary-500 rounded-full animate-pulse-slow opacity-60"></div>
-                  </div>
-                  <div>
-                    <p className="text-xs text-primary-500 font-semibold">Arriving in 10 minutes</p>
-                    <p className="text-sm font-medium">Your order is on its way!</p>
-                  </div>
-                </div>
-              </div>
+              
             </div>
             
             <div className="absolute -top-5 -right-5 bg-white rounded-lg shadow-md p-3 animate-bounce-slow">

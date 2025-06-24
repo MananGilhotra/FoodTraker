@@ -19,9 +19,6 @@ function About() {
                 We're revolutionizing food delivery with real-time tracking and transparency.
               </p>
               <div className="flex flex-wrap gap-4">
-                <a href="#team" className="btn-primary">
-                  Meet Our Team
-                </a>
                 <a href="#story" className="btn-outline">
                   Our Story
                 </a>
