@@ -1,6 +1,7 @@
 import HeroSection from '../components/home/HeroSection'
 import SellingPoints from '../components/home/SellingPoints'
 import RestaurantSection from '../components/home/RestaurantSection'
+import SearchBar from '../components/common/SearchBar'
 import { useEffect } from 'react'
 import { useOrder } from '../Context/OrderContext'
 import { useNavigate } from 'react-router-dom'
@@ -17,6 +18,10 @@ function Home() {
   return (
     <div>
       <HeroSection />
+      {/* Mobile: Show SearchBar above RestaurantSection */}
+      <div className="block md:hidden px-4 mt-4">
+        <SearchBar />
+      </div>
       <RestaurantSection />
       <SellingPoints />
       {/* Track Order Button */}

@@ -87,7 +87,6 @@ function Navbar() {
           <NavLink to="/" className={linkClasses + ' w-full text-center py-3'}>Home</NavLink>
           <NavLink to="/about" className={linkClasses + ' w-full text-center py-3'}>About</NavLink>
           <NavLink to="/services" className={linkClasses + ' w-full text-center py-3'}>Services</NavLink>
-          {!isLoginPage && <SearchBar />}
         </div>
       </div>
     </nav>
