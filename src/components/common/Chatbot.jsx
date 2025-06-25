@@ -48,7 +48,7 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const apiKey = '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';
+  const apiKey = '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';
   const chatRef = useRef(null);
 
   useEffect(() => {

@@ -12,10 +12,13 @@ function HeroSection() {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-              Track Your <span className="text-gradient">Food Delivery</span> in Real-Time
+              <span className="text-gradient">Satisfy Your Cravings, Fast! 🍕</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 mb-8">
-              Know exactly where your food is and when it will arrive with our state-of-the-art tracking technology.
+            <p className="text-xl md:text-2xl text-accent-600 font-semibold mb-2">
+              From Your Favorite Restaurants to Your Doorstep
+            </p>
+            <p className="text-lg md:text-xl text-gray-700 mb-8">
+              Order your favorite meals quickly and get them delivered hot and fresh to your doorstep. Fast, easy, and delicious!
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/services" className="btn-outline">
