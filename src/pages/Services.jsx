@@ -170,7 +170,7 @@ function Services() {
       <section className="py-16 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to experience the future of food delivery?</h2>
         <p className="text-lg mb-8">Sign up now and join the FoodTracker revolution!</p>
-        <a href="/signup" className="btn-secondary text-lg font-semibold px-8 py-4 rounded-full shadow-xl">Get Started</a>
+        <a href="/" className="btn-secondary text-lg font-semibold px-8 py-4 rounded-full shadow-xl">Get Started</a>
       </section>
     </div>
   )
