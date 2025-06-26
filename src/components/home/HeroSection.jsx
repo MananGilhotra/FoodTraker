@@ -36,7 +36,7 @@ function HeroSection() {
             
             <div className="grid grid-cols-3 gap-4 mt-12">
               <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-primary-500">10+</p>
+                <p className="text-3xl md:text-4xl font-bold text-primary-500">2k+</p>
                 <p className="text-sm text-gray-600">Restaurants</p>
               </div>
               <div className="text-center">

@@ -114,7 +114,7 @@ function About() {
                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" className="w-10 h-10 rounded-full mr-3 object-cover" />
                 <div>
                   <p className="font-medium">Priya S.</p>
-                  <p className="text-sm text-gray-500">Mumbai</p>
+                  <p className="text-sm text-gray-500">Delhi</p>
                 </div>
               </div>
             </blockquote>
