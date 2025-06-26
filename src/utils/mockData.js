@@ -285,30 +285,3 @@ export const faqData = [
     answer: 'Absolutely! Our app allows you to schedule orders up to 7 days in advance. Simply select "Schedule for Later" during checkout and choose your preferred date and time. You\'ll receive tracking information once the restaurant begins preparing your order.'
   }
 ]
-
-export const teamMembers = [
-  {
-    name: 'Manan Gilhotra',
-    role: 'Founder & CEO',
-    bio: 'Former Google Maps engineer with a passion for food and technology.',
-    image: 'https://i.pinimg.com/736x/a2/0c/41/a20c4157ac8cc7e84c9262555923e39c.jpg'
-  },
-  {
-    name: 'Siya Kapoor',
-    role: 'CTO',
-    bio: 'Tech innovator with 15+ years of experience in location-based services.',
-    image: 'https://i.pinimg.com/736x/35/b9/75/35b975625ea33670de9dfc152fec2e91.jpg'
-  },
-  {
-    name: 'Aarav Singh',
-    role: 'Head of Operations',
-    bio: 'Restaurant industry veteran focused on creating seamless delivery experiences.',
-    image: 'https://i.pinimg.com/736x/16/13/8c/16138c62e20e751a5a03be61aa29c971.jpg'
-  },
-  {
-    name: 'Nia Sharma',
-    role: 'Lead Designer',
-    bio: 'Award-winning UX/UI designer dedicated to intuitive user experiences.',
-    image: 'https://i.pinimg.com/736x/ca/ff/95/caff958c2022dce63d677fe2a1bef10f.jpg'
-  }
-]

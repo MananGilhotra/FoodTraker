@@ -17,7 +17,7 @@ export default function Login() {
     setError('');
     setLoading(true);
     // TODO: Add real authentication logic
-    alert('Logged in (demo)!');
+    alert('Logged in!');
     setLoading(false);
     navigate('/');
   };
