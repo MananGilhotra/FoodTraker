@@ -4,16 +4,50 @@ import { useCart } from '../Context/CartContext';
 import { useOrder } from '../Context/OrderContext';
 import { useState } from 'react';
 
-// Helper to generate a random point near a given location
-function randomNearbyLocation(center, radius = 0.036) {
-  const randomAngle = Math.random() * Math.PI * 2;
-  const randomRadius = Math.random() * radius;
-  const offsetLat = randomRadius * Math.cos(randomAngle);
-  const offsetLng = randomRadius * Math.sin(randomAngle);
-  return {
-    lat: center.lat + offsetLat,
-    lng: center.lng + offsetLng
-  };
+// Helper to get user's current location
+function getCurrentLocation() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error('Geolocation is not supported by this browser.'));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+      },
+      (error) => {
+        console.error('Error getting location:', error);
+        // Fallback to a default location (Delhi) if geolocation fails
+        resolve({
+          lat: 28.6139,
+          lng: 77.2090
+        });
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000 // 5 minutes
+      }
+    );
+  });
+}
+
+// Helper to calculate distance between two lat/lng points (Haversine formula)
+function haversineDistance(loc1, loc2) {
+  const toRad = (x) => (x * Math.PI) / 180;
+  const R = 6371; // Earth radius in km
+  const dLat = toRad(loc2.lat - loc1.lat);
+  const dLng = toRad(loc2.lng - loc1.lng);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(loc1.lat)) * Math.cos(toRad(loc2.lat)) *
+    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c; // distance in km
 }
 
 export default function Restaurant() {
@@ -33,42 +67,58 @@ export default function Restaurant() {
   const handlePlaceOrder = async () => {
     if (cart.items.length === 0) return;
     setPlacing(true);
-    // Generate a unique orderId
-    const orderId = 'order' + Date.now();
-    // Prepare order items in the format: { name, quantity, price }
-    const orderItems = cart.items.map(({ item, quantity }) => ({
-      name: item.name,
-      quantity,
-      price: item.price
-    }));
-    // Create order object
-    const orderedAt = new Date();
-    const randomMinutes = Math.floor(Math.random() * 6) + 10; // 10-15 min
-    const deliveryLocation = randomNearbyLocation(restaurant.location, 0.036); // random point within ~4km
-    const order = {
-      id: orderId,
-      restaurant,
-      items: orderItems,
-      status: 'ordered',
-      orderedAt,
-      estimatedDelivery: new Date(orderedAt.getTime() + randomMinutes * 60000), // 10-15 min from now
-      deliveryAddress: {
-        location: deliveryLocation
-      },
-      driverName: 'Not assigned',
-      driverPhone: '',
-      driverPhoto: '',
-      total: cart.total,
-      route: generateFakeRoute(restaurant.location, deliveryLocation),
-      paymentMethod: paymentMethod === 'upi' ? 'upi' : 'cod'
-    };
-    // Add order to context
-    addOrder(order);
-    clearCart();
-    setTimeout(() => {
+    
+    try {
+      // Get user's current location
+      const deliveryLocation = await getCurrentLocation();
+      // Calculate distance (in km)
+      const distanceKm = haversineDistance(restaurant.location, deliveryLocation);
+      // Estimate delivery time: base prep time + travel time
+      const basePrepMin = 10; // 10 min prep
+      const deliverySpeedKmh = 50; // 50 km/h typical urban delivery
+      const travelMin = (distanceKm / deliverySpeedKmh) * 60; // minutes
+      // Clamp travelMin to at least 5 min (for very close) and max 45 min (for far)
+      const totalMin = Math.round(basePrepMin + Math.max(5, Math.min(travelMin, 60)));
+      // Generate a unique orderId
+      const orderId = 'order' + Date.now();
+      // Prepare order items in the format: { name, quantity, price }
+      const orderItems = cart.items.map(({ item, quantity }) => ({
+        name: item.name,
+        quantity,
+        price: item.price
+      }));
+      // Create order object
+      const orderedAt = new Date();
+      const order = {
+        id: orderId,
+        restaurant,
+        items: orderItems,
+        status: 'ordered',
+        orderedAt,
+        estimatedDelivery: new Date(orderedAt.getTime() + totalMin * 60000),
+        deliveryAddress: {
+          location: deliveryLocation,
+          address: `Your current location (${deliveryLocation.lat.toFixed(4)}, ${deliveryLocation.lng.toFixed(4)})`
+        },
+        driverName: 'Not assigned',
+        driverPhone: '',
+        driverPhoto: '',
+        total: cart.total,
+        route: generateFakeRoute(restaurant.location, deliveryLocation),
+        paymentMethod: paymentMethod === 'upi' ? 'upi' : 'cod'
+      };
+      // Add order to context
+      addOrder(order);
+      clearCart();
+      setTimeout(() => {
+        setPlacing(false);
+        navigate(`/track/${orderId}`);
+      }, 800);
+    } catch (error) {
+      console.error('Error placing order:', error);
       setPlacing(false);
-      navigate(`/track/${orderId}`);
-    }, 800);
+      alert('Unable to get your location. Please ensure location permissions are enabled.');
+    }
   };
 
   return (

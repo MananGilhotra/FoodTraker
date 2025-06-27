@@ -68,7 +68,7 @@ export default function OrderTracking() {
   const [statusUpdateMessage, setStatusUpdateMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
   useEffect(() => {
     try {
       console.log('OrderTracking: orderId =', orderId);
@@ -227,7 +227,7 @@ export default function OrderTracking() {
       </div>
     );
   }
-
+  
   if (error || !order) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh]">
@@ -273,7 +273,7 @@ export default function OrderTracking() {
 
   console.log('OrderTracking: Rendering with order =', order);
   console.log('OrderTracking: route =', route);
-
+  
   return (
     <div className="w-full min-h-[80vh] flex justify-center bg-gray-50 py-8 px-2">
       <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8">
@@ -282,18 +282,18 @@ export default function OrderTracking() {
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-2xl font-bold text-green-600">Track your order</h1>
             <Link to="/" className="text-sm text-primary-500 underline">Back to Home</Link>
-          </div>
-          
+        </div>
+        
           {/* Time Elapsed Info */}
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
             <div className="text-sm text-blue-800 text-center">
               <span className="font-semibold">Time elapsed:</span> {Math.floor((Date.now() - new Date(order.orderedAt).getTime()) / 60000)} minutes
-            </div>
+                  </div>
             <div className="text-xs text-blue-600 text-center mt-1">
               Order placed at {new Date(order.orderedAt).toLocaleTimeString()}
-            </div>
-          </div>
-          
+                  </div>
+                </div>
+              
           {/* Delivery Progress Bar */}
           <div className="bg-gray-50 p-4 rounded-lg">
             <div className="flex justify-between items-center mb-2">
@@ -305,14 +305,14 @@ export default function OrderTracking() {
                 className="bg-green-500 h-2 rounded-full transition-all duration-500 ease-out"
                 style={{ width: `${Math.round(progress * 100)}%` }}
               ></div>
-            </div>
+                    </div>
             <div className="text-xs text-gray-500 mt-1 text-center">
               {eta > 0 ? `${eta} minutes remaining` : 'Almost there!'}
-            </div>
-          </div>
-          
+                  </div>
+                </div>
+                
           {/* Status Timeline */}
-          <div className="relative">
+                  <div className="relative">
             <div className="flex items-center justify-between mb-6">
               {steps.map((step, i) => (
                 <div key={step.key} className="flex flex-col items-center flex-1 relative">
@@ -324,30 +324,30 @@ export default function OrderTracking() {
                       : 'bg-gray-100 text-gray-400 border-gray-300'
                   }`}>
                     {step.icon}
-                  </div>
+                          </div>
                   <span className={`text-sm font-medium text-center ${i <= currentStep ? 'text-green-600' : 'text-gray-400'}`}>
-                    {step.label}
-                  </span>
+                            {step.label}
+                          </span>
                   {i < steps.length - 1 && (
                     <div className={`absolute top-6 left-1/2 w-full h-1 transition-all duration-500 ${
                       i < currentStep ? 'bg-green-500' : 'bg-gray-300'
                     }`} style={{ transform: 'translateX(50%)' }}></div>
                   )}
-                </div>
-              ))}
-            </div>
-          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
           
           {/* Current Status Display */}
           <div className="text-center bg-blue-50 p-4 rounded-lg border border-blue-200">
             <div className="text-lg font-semibold text-blue-800">
               Current Status: {steps[currentStep]?.label}
-            </div>
+                </div>
             <div className="text-sm text-blue-600 mt-1">
               {steps[currentStep]?.icon} {steps[currentStep]?.label}
-            </div>
-          </div>
-          
+                  </div>
+                </div>
+                
           {/* Map and Info */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1 min-w-[220px]">
@@ -401,7 +401,7 @@ export default function OrderTracking() {
             <div className="flex-1 flex flex-col gap-2 justify-center">
               <div className="flex items-center gap-2">
                 <img src={order.restaurant.image} alt="restaurant" className="w-12 h-12 rounded-full object-cover border shadow" />
-                <div>
+                      <div>
                   <div className="font-semibold text-gray-800 text-lg">{order.restaurant.name}</div>
                   <div className="text-xs text-gray-500">{order.restaurant.cuisine} • {order.restaurant.priceRange}</div>
                 </div>
@@ -427,9 +427,9 @@ export default function OrderTracking() {
             </div>
             <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
               <div className="h-full bg-green-500 transition-all duration-500" style={{ width: `${progress * 100}%` }}></div>
-            </div>
-          </div>
-        </div>
+                    </div>
+                  </div>
+                </div>
         {/* Right: Order Summary (sticky on desktop) */}
         <div className="w-full md:w-[350px] lg:w-[400px] flex-shrink-0">
           <div className="bg-white rounded-2xl shadow-xl p-6 sticky top-24">
@@ -471,4 +471,4 @@ export default function OrderTracking() {
       </div>
     </div>
   );
-} 
+}

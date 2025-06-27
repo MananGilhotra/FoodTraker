@@ -14,7 +14,7 @@ function Home() {
   const navigate = useNavigate();
   // Get the most recent order (if any)
   const latestOrder = orders && orders.length > 0 ? orders[0] : null;
-
+  
   return (
     <div>
       <HeroSection />
