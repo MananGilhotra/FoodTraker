@@ -177,7 +177,7 @@ export const mockOrders = [
       address: '123 Main St, New York, NY 10001',
       location: { lat: 40.7282, lng: -73.9942 }
     },
-    driverName: 'Rahul Kumar',
+    driverName: 'Raj Kumar',
     driverPhone: '+91 9876543210',
     driverPhoto: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     total: 34.95,
