@@ -1,16 +1,3 @@
-const generateRandomPoint = (center, radius = 0.01) => {
-  const randomAngle = Math.random() * Math.PI * 2 
-  const randomRadius = Math.random() * radius 
-  
-  const offsetLat = randomRadius * Math.cos(randomAngle)
-  const offsetLng = randomRadius * Math.sin(randomAngle)
-  
-  return {
-    lat: center.lat + offsetLat,
-    lng: center.lng + offsetLng
-  }
-}
-
 export const generateFakeRoute = (start, end, waypoints = 8) => {
   const route = []
   
@@ -52,7 +39,7 @@ export const restaurants = [
     id: 'rest2',
     name: 'Burger King',
     image: 'https://i.pinimg.com/736x/70/38/01/703801fc16a7c10fdd7aadec9dc5ab81.jpg',
-    location: { lat: 19.0760, lng: 72.8777 }, // Mumbai
+    location: { lat: 28.7041, lng: 77.1025 }, // Delhi
     rating: 4.5,
     cuisine: 'American',
     priceRange: '',
@@ -67,7 +54,7 @@ export const restaurants = [
     id: 'rest3',
     name: 'Billus Kitchen',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQXm6nuKcjT7n3JTa_g2JzGtly3mby6uhY_A&s',
-    location: { lat: 12.9716, lng: 77.5946 }, // Bangalore
+    location: { lat: 28.6692, lng: 77.4538 }, // Sonipat
     rating: 4.8,
     cuisine: 'Italian',
     priceRange: '',
@@ -81,7 +68,7 @@ export const restaurants = [
     id: 'rest4',
     name: 'Sushi Zen',
     image: 'https://s3-media0.fl.yelpcdn.com/bphoto/SwW5Yv2VnJ32x2TQ4niI2w/258s.jpg',
-    location: { lat: 22.5726, lng: 88.3639 }, // Kolkata
+    location: { lat: 28.9958, lng: 77.0117 }, // Sonipat
     rating: 4.6,
     cuisine: 'Japanese',
     priceRange: '',
@@ -94,7 +81,7 @@ export const restaurants = [
     id: 'rest5',
     name: 'Taco Fiesta',
     image: 'https://s3-media0.fl.yelpcdn.com/bphoto/MQftiZlRhzqe08unb1uveA/348s.jpg',
-    location: { lat: 23.0225, lng: 72.5714 }, // Ahmedabad
+    location: { lat: 28.9288, lng: 77.1544 }, // Sonipat
     rating: 4.3,
     cuisine: 'Mexican',
     priceRange: '',
@@ -107,7 +94,7 @@ export const restaurants = [
     id: 'rest6',
     name: 'Pizza Palace',
     image: 'https://content.jdmagicbox.com/v2/comp/delhi/l7/011pxx11.xx11.180222115026.k8l7/catalogue/da-pizza-palace-shastri-nagar-n-delhi-pizza-outlets-1mz5boc85g.jpg',
-    location: { lat: 18.5204, lng: 73.8567 }, // Pune
+    location: { lat: 28.5355, lng: 77.3910 }, // Delhi NCR (close to Delhi)
     rating: 4.9,
     cuisine: 'Pizza',
     priceRange: '',
@@ -120,7 +107,7 @@ export const restaurants = [
     id: 'rest7',
     name: 'Vegan Delight',
     image: 'https://www.ipohecho.com.my/wp-content/uploads/2021/10/VeganDelights-2.jpg',
-    location: { lat: 26.9124, lng: 75.7873 }, // Jaipur
+    location: { lat: 28.7100, lng: 77.2800 }, // Delhi
     rating: 4.4,
     cuisine: 'Vegan',
     priceRange: '',
@@ -133,7 +120,7 @@ export const restaurants = [
     id: 'rest8',
     name: 'Curry House',
     image: 'https://ca-times.brightspotcdn.com/dims4/default/10e02ca/2147483647/strip/false/crop/4032x3024+0+0/resize/1486x1115!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F9c%2Fb0%2F83a0766646cc88a1a5b07a7e7c36%2Fimg-9348.jpg',
-    location: { lat: 17.3850, lng: 78.4867 }, // Hyderabad
+    location: { lat: 28.9950, lng: 77.0220 }, // Sonipat
     rating: 4.2,
     cuisine: 'Indian',
     priceRange: '',
@@ -146,7 +133,7 @@ export const restaurants = [
     id: 'rest9',
     name: 'BBQ Nation',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTNj8dIbAMLCUm3sQScQwMHMmkOYubP5TXnw&s',
-    location: { lat: 13.0827, lng: 80.2707 }, // Chennai
+    location: { lat: 28.9280, lng: 77.0910 }, // Sonipat
     rating: 4.7,
     cuisine: 'BBQ',
     priceRange: '',
@@ -174,8 +161,8 @@ export const mockOrders = [
     orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
     estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
     deliveryAddress: {
-      address: '123 Main St, New York, NY 10001',
-      location: { lat: 40.7282, lng: -73.9942 }
+      address: 'Connaught Place, Delhi, 110001',
+      location: { lat: 28.6304, lng: 77.2177 }
     },
     driverName: 'Raj Kumar',
     driverPhone: '+91 9876543210',
@@ -183,7 +170,7 @@ export const mockOrders = [
     total: 34.95,
     route: generateFakeRoute(
       restaurants[0].location,
-      { lat: 40.7282, lng: -73.9942 }
+      { lat: 28.6304, lng: 77.2177 }
     )
   },
   {
@@ -199,8 +186,8 @@ export const mockOrders = [
     orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
     estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
     deliveryAddress: {
-      address: '123 Netaji Subhas Palace, Mumbai, Maharashtra 400080',
-      location: { lat: 40.7580, lng: -73.9755 }
+      address: 'Karol Bagh, Delhi, 110005',
+      location: { lat: 28.6517, lng: 77.1907 }
     },
     driverName: 'Amit Singh',
     driverPhone: '+91 8765432109',
@@ -208,7 +195,7 @@ export const mockOrders = [
     total: 45.95,
     route: generateFakeRoute(
       restaurants[1].location,
-      { lat: 40.7580, lng: -73.9755 }
+      { lat: 28.6517, lng: 77.1907 }
     )
   },
   {
@@ -223,8 +210,8 @@ export const mockOrders = [
     orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
     estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
     deliveryAddress: {
-      address: '789 Broadway, New York, NY 10003',
-      location: { lat: 40.7352, lng: -73.9911 }
+      address: 'Sector 14, Sonipat, Haryana 131001',
+      location: { lat: 28.9958, lng: 77.0117 }
     },
     driverName: 'Vikram Patel',
     driverPhone: '+91 7654321098',
@@ -232,7 +219,7 @@ export const mockOrders = [
     total: 33.97,
     route: generateFakeRoute(
       restaurants[2].location,
-      { lat: 40.7352, lng: -73.9911 }
+      { lat: 28.9958, lng: 77.0117 }
     )
   }
 ]

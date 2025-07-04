@@ -90,7 +90,7 @@ function About() {
         </div>
       </section>
 
-      {/* Fun Stats & Testimonial */}
+      {/* Testimonial */}
       <section className="py-16 bg-white">
         <div className="container-custom grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="flex flex-col items-center md:items-start">
@@ -125,7 +125,7 @@ function About() {
         </div>
       </section>
 
-      {/* Footer CTA */}
+      {/* Footer*/}
       <section className="py-16 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to track your next meal?</h2>
         <p className="text-lg mb-8">Join thousands of happy customers and experience food delivery the modern way.</p>

@@ -6,7 +6,7 @@ import { MapContainer, TileLayer, Polyline, Marker, Popup, useMap } from 'react-
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Custom marker icons
+
 const restaurantIcon = new L.Icon({
   iconUrl: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png',
   iconSize: [36, 36],
@@ -47,18 +47,6 @@ function MapAutoFit({ route, deliveryLoc, restaurantLoc }) {
   return null;
 }
 
-// Helper to generate a random point near a given location
-function randomNearbyLocation(center, radius = 0.036) {
-  const randomAngle = Math.random() * Math.PI * 2;
-  const randomRadius = Math.random() * radius;
-  const offsetLat = randomRadius * Math.cos(randomAngle);
-  const offsetLng = randomRadius * Math.sin(randomAngle);
-  return {
-    lat: center.lat + offsetLat,
-    lng: center.lng + offsetLng
-  };
-}
-
 export default function OrderTracking() {
   const { orderId } = useParams();
   const { getOrder, updateOrderStatus } = useOrder();
@@ -76,34 +64,12 @@ export default function OrderTracking() {
       console.log('OrderTracking: order =', o);
       
       if (!o) {
-        console.log('OrderTracking: No order found, showing test order');
-        // Create a test order for debugging
-        const testOrder = {
-          id: 'test-order',
-          restaurant: {
-            name: 'Test Restaurant',
-            location: { lat: 28.6139, lng: 77.2090 }
-          },
-          items: [
-            { name: 'Test Item', quantity: 1, price: 10.99 }
-          ],
-          status: 'ordered',
-          orderedAt: new Date(Date.now() - 5 * 60000),
-          estimatedDelivery: new Date(Date.now() + 15 * 60000),
-          deliveryAddress: {
-            address: 'Test Address',
-            location: { lat: 28.6140, lng: 77.2091 }
-          },
-          driverName: 'Rahul Kumar',
-          driverPhone: '+91 9876543210',
-          driverPhoto: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg',
-          total: 10.99
-        };
-        setOrder(testOrder);
+        setError('Order not found');
+        setOrder(null);
       } else {
         // Ensure driver is assigned if not already
         if (!o.driverName || o.driverName === 'Not assigned') {
-          const drivers = ['Rahul Kumar', 'Amit Singh', 'Vikram Patel', 'Rajesh Sharma', 'Suresh Verma'];
+          const drivers = ['Raj Kumar', 'Amit Singh', 'Vikram Patel', 'Rajesh Sharma', 'Suresh Verma'];
           const randomDriver = drivers[Math.floor(Math.random() * drivers.length)];
           o.driverName = randomDriver;
           o.driverPhone = '+91 ' + Math.floor(Math.random() * 9000000000) + 1000000000;
@@ -159,9 +125,9 @@ export default function OrderTracking() {
       const restaurantLoc = order.restaurant.location;
       let deliveryLoc = order.deliveryAddress.location;
       
-      // If delivery location is the same as restaurant, use a random nearby location for map display only
+      // If delivery location is the same as restaurant, use the same location for map display
       if (deliveryLoc.lat === restaurantLoc.lat && deliveryLoc.lng === restaurantLoc.lng) {
-        deliveryLoc = randomNearbyLocation(restaurantLoc, 0.036); // ~4km
+        deliveryLoc = restaurantLoc;
       }
       
       // Always generate a route for the map between restaurant and delivery location
@@ -253,10 +219,10 @@ export default function OrderTracking() {
 
   // Map points
   const restaurantLoc = order.restaurant.location;
-  // If delivery location is the same as restaurant, use a random nearby location for map display only
+  // If delivery location is the same as restaurant, use the same location for map display
   let deliveryLoc = order.deliveryAddress.location;
   if (deliveryLoc.lat === restaurantLoc.lat && deliveryLoc.lng === restaurantLoc.lng) {
-    deliveryLoc = randomNearbyLocation(restaurantLoc, 0.036); // ~4km
+    deliveryLoc = restaurantLoc;
   }
 
   // Calculate the original expected delivery window (10-15 min)
