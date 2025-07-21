@@ -4,7 +4,7 @@ import { useCart } from '../Context/CartContext';
 import { useOrder } from '../Context/OrderContext';
 import { useState } from 'react';
 
-// Helper to get user's current location
+//current location
 function getCurrentLocation() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -21,7 +21,6 @@ function getCurrentLocation() {
       },
       (error) => {
         console.error('Error getting location:', error);
-        // Fallback to a default location (Delhi) if geolocation fails
         resolve({
           lat: 28.6139,
           lng: 77.2090

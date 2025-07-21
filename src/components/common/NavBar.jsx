@@ -69,6 +69,7 @@ function Navbar() {
         <div className="w-full flex justify-center md:hidden mt-2 mb-2 px-2"></div>
         <div className="hidden md:flex items-center space-x-1">
           <NavLink to="/" className={linkClasses}>Home</NavLink>
+          <NavLink to="/restaurants" className={linkClasses}>Restaurants</NavLink>
           <NavLink to="/about" className={linkClasses}>About</NavLink>
           <NavLink to="/services" className={linkClasses}>Services</NavLink>
         </div>
@@ -85,6 +86,7 @@ function Navbar() {
       } bg-white shadow-lg border-t border-gray-200 w-full`}> 
         <div className="flex flex-col space-y-3 px-4 py-2">
           <NavLink to="/" className={linkClasses + ' w-full text-center py-3'}>Home</NavLink>
+          <NavLink to="/restaurants" className={linkClasses + ' w-full text-center py-3'}>Restaurants</NavLink>
           <NavLink to="/about" className={linkClasses + ' w-full text-center py-3'}>About</NavLink>
           <NavLink to="/services" className={linkClasses + ' w-full text-center py-3'}>Services</NavLink>
         </div>

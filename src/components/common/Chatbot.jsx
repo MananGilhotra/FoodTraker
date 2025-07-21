@@ -20,7 +20,7 @@ async function fetchOpenRouterResponse(message, apiKey) {
       body: JSON.stringify({
         model: OPENROUTER_MODEL,
         messages: [
-          { role: 'system', content: 'You are a helpful food delivery assistant for FoodTraker. Answer user questions about orders, delivery, and food.' },
+          { role: 'system', content: 'You are a helpful food delivery assistant for FoodTraker. Answer user questions about orders, delivery, and food. Keep your answers concise, no more than 40 words.' },
           { role: 'user', content: message }
         ]
       })
@@ -32,7 +32,13 @@ async function fetchOpenRouterResponse(message, apiKey) {
     }
     const data = await res.json();
     if (data.choices && data.choices[0]?.message?.content) {
-      return data.choices[0].message.content.trim();
+      // Post-process to trim to ~40 words
+      let text = data.choices[0].message.content.trim();
+      const words = text.split(/\s+/);
+      if (words.length > 40) {
+        text = words.slice(0, 40).join(' ') + '...';
+      }
+      return text;
     }
     return 'Sorry, I could not get a response from the AI.';
   } catch (e) {
@@ -48,7 +54,7 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const apiKey = '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';
+  const apiKey = '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';
   const chatRef = useRef(null);
 
   useEffect(() => {
@@ -61,10 +67,9 @@ export default function Chatbot() {
     e.preventDefault();
     if (!input.trim() || loading) return;
     const userMsg = { from: 'user', text: input };
-    setMessages(msgs => [...msgs, userMsg]);
+    setMessages(msgs => [...msgs, userMsg, { from: 'bot', text: 'Thinking...' }]);
     setInput('');
     setLoading(true);
-    setMessages(msgs => [...msgs, { from: 'bot', text: 'Thinking...' }]);
     let aiText = await fetchOpenRouterResponse(userMsg.text, apiKey);
     setMessages(msgs => [
       ...msgs.slice(0, -1),
@@ -101,9 +106,6 @@ export default function Chatbot() {
                 {msg.from === 'user' && <img src={userAvatar} alt="You" className="w-6 h-6 rounded-full ml-2" />}
               </div>
             ))}
-            {loading && (
-              <div className="flex justify-start"><img src={botAvatar} alt="Bot" className="w-6 h-6 rounded-full mr-2" /><div className="px-3 py-2 rounded-lg text-sm bg-primary-100 text-primary-800">Thinking...</div></div>
-            )}
           </div>
           <form onSubmit={sendMessage} className="flex items-center border-t px-2 py-2 bg-white">
             <input

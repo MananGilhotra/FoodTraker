@@ -13,6 +13,7 @@ import Restaurant from './pages/Restaurant.jsx';
 import Chatbot from './components/common/Chatbot.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
+import Restaurants from './pages/Restaurants.jsx';
 import './App.css'
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
               <Route path="/services" element={<Services />} />
               <Route path="/track/:orderId" element={<OrderTracking />} />
               <Route path="/restaurant/:id" element={<Restaurant />} />
+              <Route path="/restaurants" element={<Restaurants />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>
