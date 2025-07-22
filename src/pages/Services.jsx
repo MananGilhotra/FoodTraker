@@ -3,9 +3,9 @@ import { useState } from 'react'
 const tabs = [
   {
     label: 'For Customers',
-    icon: (
+      icon: (
       <svg className="w-7 h-7 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-    ),
+      ),
     content: (
       <div className="text-center md:text-left">
         <h3 className="text-2xl font-bold mb-2">Order, Track, Enjoy</h3>
@@ -20,7 +20,7 @@ const tabs = [
   },
   {
     label: 'For Restaurants',
-    icon: (
+      icon: (
       <svg className="w-7 h-7 text-secondary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7h18M3 12h18M3 17h18"></path></svg>
     ),
     content: (
@@ -34,10 +34,10 @@ const tabs = [
         </ul>
       </div>
     ),
-  },
-  {
+    },
+    {
     label: 'For Drivers',
-    icon: (
+      icon: (
       <svg className="w-7 h-7 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m4 0h-1v-4h-1m-4 0h-1v-4h-1"></path></svg>
     ),
     content: (
@@ -50,7 +50,7 @@ const tabs = [
           <li>24/7 driver support</li>
         </ul>
       </div>
-    ),
+      ),
   },
 ]
 
@@ -90,7 +90,7 @@ const faqs = [
 function Services() {
   const [activeTab, setActiveTab] = useState(0)
   const [openFaq, setOpenFaq] = useState(null)
-
+  
   return (
     <div>
       {/* Hero Section */}
@@ -101,7 +101,7 @@ function Services() {
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">Whether you're a customer, restaurant, or driver, FoodTracker has you covered with powerful features and real-time technology.</p>
         </div>
       </section>
-
+      
       {/* Tabbed Services */}
       <section className="py-12 bg-white">
         <div className="container-custom">
@@ -124,7 +124,7 @@ function Services() {
           </div>
         </div>
       </section>
-
+      
       {/* How It Works Stepper */}
       <section className="py-16 bg-gradient-to-br from-primary-50 to-accent-50">
         <div className="container-custom">
@@ -140,7 +140,7 @@ function Services() {
           </div>
         </div>
       </section>
-
+      
       {/* FAQ Accordion */}
       <section className="py-16 bg-white">
         <div className="container-custom max-w-2xl mx-auto">
@@ -148,7 +148,7 @@ function Services() {
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
               <div key={faq.q} className="border rounded-xl shadow-sm">
-                <button
+                <button 
                   className="w-full flex justify-between items-center px-6 py-4 text-lg font-semibold focus:outline-none"
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
                 >
@@ -165,7 +165,7 @@ function Services() {
           </div>
         </div>
       </section>
-
+      
       {/* Footer CTA */}
       <section className="py-16 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to experience the future of food delivery?</h2>

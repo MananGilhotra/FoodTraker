@@ -377,7 +377,7 @@ export default function OrderTracking() {
                 <img src={order.driverPhoto || 'https://cdn-icons-png.flaticon.com/512/194/194938.png'} alt="driver" className="w-10 h-10 rounded-full object-cover border shadow" />
                 <div>
                   <div className="text-base font-semibold text-gray-700">{order.driverName || 'Not assigned'}</div>
-                  <div className="text-xs text-gray-500">{order.driverPhone || 'N/A'}</div>
+                  <div className="text-xs text-gray-500">{order.driverPhone ? order.driverPhone.replace(/[^0-9]/g, '').slice(-10) : 'N/A'}</div>
                 </div>
               </div>
             </div>

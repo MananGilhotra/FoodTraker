@@ -62,7 +62,7 @@ export const restaurants = [
       { id: 'item7', name: 'Fettuccine Alfredo', description: 'Pasta in creamy Alfredo sauce.', price: 420, image: 'https://cookingwithcassandra.com/wp-content/uploads/2022/10/Copy-of-Copy-of-DSC03750-2-scaled.jpg' },
       { id: 'item8', name: 'Caprese Salad', description: 'Fresh mozzarella, tomatoes, basil.', price: 350, image: 'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2019/07/Caprese-Salad-2-2.jpg' },
       { id: 'item9', name: 'Tiramisu', description: 'Classic Italian dessert.', price: 360, image: 'https://mediterraneantaste.com/wp-content/uploads/2023/11/tiramisu-4583-500x500.jpg' }
-    ]
+]
   },
   {
     id: 'rest4',
@@ -158,14 +158,14 @@ export const mockOrders = [
       { name: 'Mango Lassi', quantity: 1, price: 4.99, image: 'https://www.cookwithmanali.com/wp-content/uploads/2017/05/Mango-Lassi-500x500.jpg' }
     ],
     status: 'preparing', 
-    orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
-    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
+    orderedAt: new Date(Date.now() - 5 * 60000),
+    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)),
     deliveryAddress: {
       address: 'Connaught Place, Delhi, 110001',
       location: { lat: 28.6304, lng: 77.2177 }
     },
     driverName: 'Raj Kumar',
-    driverPhone: '+91 9876543210',
+    driverPhone: '9876543210',
     driverPhoto: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     total: 34.95,
     route: generateFakeRoute(
@@ -183,14 +183,14 @@ export const mockOrders = [
       { name: 'Chocolate Milkshake', quantity: 2, price: 4.99, image: 'https://www.burgerking.in/Images/Product/chocolate-milkshake.png' }
     ],
     status: 'on-the-way',
-    orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
-    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
+    orderedAt: new Date(Date.now() - 5 * 60000),
+    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)),
     deliveryAddress: {
       address: 'Karol Bagh, Delhi, 110005',
       location: { lat: 28.6517, lng: 77.1907 }
     },
     driverName: 'Amit Singh',
-    driverPhone: '+91 8765432109',
+    driverPhone: '8765432109',
     driverPhoto: 'https://t4.ftcdn.net/jpg/01/79/99/99/360_F_179999999_1mzWKikF52md2KxaKIh2yPC47A365Jtx.jpg',
     total: 45.95,
     route: generateFakeRoute(
@@ -207,14 +207,14 @@ export const mockOrders = [
       { name: 'Tiramisu', quantity: 1, price: 7.99, image: 'https://www.simplyrecipes.com/thmb/8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw8Qw=/2000x1333/filters:fill(auto,1)/Simply-Recipes-Tiramisu-LEAD-1-7b7b7b7b7b7b4b7b8b7b7b7b7b7b7b7b.jpg' }
     ],
     status: 'ordered',
-    orderedAt: new Date(Date.now() - 5 * 60000), // 5 minutes ago
-    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)), // 10-15 min from now
+    orderedAt: new Date(Date.now() - 5 * 60000),
+    estimatedDelivery: new Date(Date.now() + (randomMinutes(10, 15) * 60000)),
     deliveryAddress: {
       address: 'Sector 14, Sonipat, Haryana 131001',
       location: { lat: 28.9958, lng: 77.0117 }
     },
     driverName: 'Vikram Patel',
-    driverPhone: '+91 7654321098',
+    driverPhone: '7654321098',
     driverPhoto: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     total: 33.97,
     route: generateFakeRoute(
