@@ -10,7 +10,7 @@ function SearchBar() {
   const inputRef = useRef(null)
   const wrapperRef = useRef(null)
 
-  // Show results as user types
+  
   useEffect(() => {
     const query = search.trim().toLowerCase()
     if (!query) {
@@ -18,9 +18,9 @@ function SearchBar() {
       setShowResults(false)
       return
     }
-    // Search restaurants
+    
     const restMatches = restaurants.filter(r => r.name.toLowerCase().includes(query))
-    // Search dishes
+    
     const dishMatches = []
     restaurants.forEach(r => {
       r.menu.forEach(item => {
@@ -37,7 +37,7 @@ function SearchBar() {
     setShowResults(true)
   }, [search])
 
-  // Close dropdown when clicking outside
+  
   useEffect(() => {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {

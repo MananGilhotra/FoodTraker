@@ -4,7 +4,7 @@ import { useCart } from '../Context/CartContext';
 import { useOrder } from '../Context/OrderContext';
 import { useState } from 'react';
 
-//current location
+
 function getCurrentLocation() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -35,7 +35,6 @@ function getCurrentLocation() {
   });
 }
 
-// Helper to calculate distance between two lat/lng points (Haversine formula)
 function haversineDistance(loc1, loc2) {
   const toRad = (x) => (x * Math.PI) / 180;
   const R = 6371; // Earth radius in km
@@ -46,7 +45,7 @@ function haversineDistance(loc1, loc2) {
     Math.cos(toRad(loc1.lat)) * Math.cos(toRad(loc2.lat)) *
     Math.sin(dLng / 2) * Math.sin(dLng / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // distance in km
+  return R * c;
 }
 
 export default function Restaurant() {
@@ -68,25 +67,24 @@ export default function Restaurant() {
     setPlacing(true);
     
     try {
-      // Get user's current location
+      
       const deliveryLocation = await getCurrentLocation();
-      // Calculate distance (in km)
+      
       const distanceKm = haversineDistance(restaurant.location, deliveryLocation);
-      // Estimate delivery time: base prep time + travel time
-      const basePrepMin = 10; // 10 min prep
-      const deliverySpeedKmh = 50; // 50 km/h typical urban delivery
-      const travelMin = (distanceKm / deliverySpeedKmh) * 60; // minutes
-      // Clamp travelMin to at least 5 min (for very close) and max 45 min (for far)
+      
+      const basePrepMin = 10;
+      const deliverySpeedKmh = 50;
+      const travelMin = (distanceKm / deliverySpeedKmh) * 60;
       const totalMin = Math.round(basePrepMin + Math.max(5, Math.min(travelMin, 60)));
-      // Generate a unique orderId
+
       const orderId = 'order' + Date.now();
-      // Prepare order items in the format: { name, quantity, price }
+
       const orderItems = cart.items.map(({ item, quantity }) => ({
         name: item.name,
         quantity,
         price: item.price
       }));
-      // Create order object
+
       const orderedAt = new Date();
       const order = {
         id: orderId,
@@ -106,7 +104,7 @@ export default function Restaurant() {
         route: generateFakeRoute(restaurant.location, deliveryLocation),
         paymentMethod: paymentMethod === 'upi' ? 'upi' : 'cod'
       };
-      // Add order to context
+      
       addOrder(order);
       clearCart();
       setTimeout(() => {
@@ -137,7 +135,7 @@ export default function Restaurant() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {/* Menu */}
+        
         <div className="md:col-span-2">
           <h2 className="text-2xl font-bold mb-4">Menu</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -162,7 +160,7 @@ export default function Restaurant() {
           </div>
         </div>
 
-        {/* Cart & Bill */}
+        
         <div className="bg-white rounded-xl shadow-md p-6">
           <h2 className="text-xl font-bold mb-4">Your Cart</h2>
           {cart.items.length === 0 ? (
@@ -192,7 +190,7 @@ export default function Restaurant() {
                 <div className="flex justify-between font-bold text-lg"><span>Total</span><span>₹{cart.total.toFixed(2)}</span></div>
               </div>
               <button className="btn-secondary w-full mt-4" onClick={clearCart}>Clear Cart</button>
-              {/* Payment Method Selection */}
+              
               <div className="mt-4">
                 <label className="block font-medium mb-1">Payment Method</label>
                 <div className="flex gap-4 mb-2">

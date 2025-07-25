@@ -67,7 +67,7 @@ export default function OrderTracking() {
         setError('Order not found');
         setOrder(null);
       } else {
-        // Ensure driver is assigned if not already
+        
         if (!o.driverName || o.driverName === 'Not assigned') {
           const drivers = ['Raj Kumar', 'Amit Singh', 'Vikram Patel', 'Rajesh Sharma', 'Suresh Verma'];
           const randomDriver = drivers[Math.floor(Math.random() * drivers.length)];
@@ -85,7 +85,7 @@ export default function OrderTracking() {
     }
   }, [orderId, getOrder]);
 
-  // Automatic status progression
+  
   useEffect(() => {
     if (!order) return;
 
@@ -96,7 +96,7 @@ export default function OrderTracking() {
 
       let newStatus = order.status;
 
-      // Auto-progress status based on time
+      
       if (order.status === 'ordered' && elapsedMinutes >= 1) {
         newStatus = 'preparing';
       } else if (order.status === 'preparing' && elapsedMinutes >= 2) {
@@ -105,7 +105,7 @@ export default function OrderTracking() {
         newStatus = 'delivered';
       }
 
-      // Update status if it changed
+      
       if (newStatus !== order.status) {
         updateOrderStatus(orderId, newStatus);
         setOrder(prev => ({ ...prev, status: newStatus }));
@@ -117,7 +117,7 @@ export default function OrderTracking() {
     return () => clearInterval(interval);
   }, [order, orderId, updateOrderStatus]);
 
-  // Calculate route early to avoid scope issues
+  
   const calculateRoute = (order) => {
     if (!order) return [];
     
@@ -125,12 +125,12 @@ export default function OrderTracking() {
       const restaurantLoc = order.restaurant.location;
       let deliveryLoc = order.deliveryAddress.location;
       
-      // If delivery location is the same as restaurant, use the same location for map display
+      
       if (deliveryLoc.lat === restaurantLoc.lat && deliveryLoc.lng === restaurantLoc.lng) {
         deliveryLoc = restaurantLoc;
       }
       
-      // Always generate a route for the map between restaurant and delivery location
+      
       return (order.route && order.route.length > 1)
         ? order.route
         : generateFakeRoute(restaurantLoc, deliveryLoc);
@@ -142,7 +142,7 @@ export default function OrderTracking() {
 
   const route = calculateRoute(order);
 
-  // Animate driver location along the route based on progress
+  
   useEffect(() => {
     if (!order || !route || route.length < 2) return;
     const updateDriverLoc = () => {
@@ -151,7 +151,7 @@ export default function OrderTracking() {
         const elapsed = Date.now() - new Date(order.orderedAt);
         const prog = Math.min(1, elapsed / total);
         setProgress(prog);
-        // Interpolate position along the route
+        
         const idx = Math.floor(prog * (route.length - 1));
         const nextIdx = Math.min(idx + 1, route.length - 1);
         const frac = (prog * (route.length - 1)) - idx;
@@ -213,23 +213,23 @@ export default function OrderTracking() {
   const currentStep = steps.findIndex(s => s.key === order.status);
   const eta = Math.max(0, Math.round((new Date(order.estimatedDelivery) - Date.now()) / 60000));
 
-  // Calculate time elapsed since order
+  
   const orderTime = new Date(order.orderedAt).getTime();
   const elapsedMinutes = Math.floor((Date.now() - orderTime) / 60000);
 
-  // Map points
+  
   const restaurantLoc = order.restaurant.location;
-  // If delivery location is the same as restaurant, use the same location for map display
+  
   let deliveryLoc = order.deliveryAddress.location;
   if (deliveryLoc.lat === restaurantLoc.lat && deliveryLoc.lng === restaurantLoc.lng) {
     deliveryLoc = restaurantLoc;
   }
 
-  // Calculate the original expected delivery window (10-15 min)
+  
   let expectedWindow = '';
   if (order) {
     const totalMin = Math.round((new Date(order.estimatedDelivery) - new Date(order.orderedAt)) / 60000);
-    // If it's between 10 and 15, show as a window, else show the actual
+    
     if (totalMin >= 10 && totalMin <= 15) {
       expectedWindow = 'Expected delivery: 10-15 min';
     } else {
@@ -243,14 +243,14 @@ export default function OrderTracking() {
   return (
     <div className="w-full min-h-[80vh] flex justify-center bg-gray-50 py-8 px-2">
       <div className="w-full max-w-6xl flex flex-col md:flex-row gap-8">
-        {/* Left: Map & Status */}
+        
         <div className="flex-1 bg-white rounded-2xl shadow-xl p-8 flex flex-col gap-8 min-w-[350px]">
           <div className="flex items-center justify-between mb-2">
             <h1 className="text-2xl font-bold text-green-600">Track your order</h1>
             <Link to="/" className="text-sm text-primary-500 underline">Back to Home</Link>
         </div>
         
-          {/* Time Elapsed Info */}
+          
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
             <div className="text-sm text-blue-800 text-center">
               <span className="font-semibold">Time elapsed:</span> {Math.floor((Date.now() - new Date(order.orderedAt).getTime()) / 60000)} minutes
@@ -260,7 +260,7 @@ export default function OrderTracking() {
                   </div>
                 </div>
               
-          {/* Delivery Progress Bar */}
+          
           <div className="bg-gray-50 p-4 rounded-lg">
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium text-gray-700">Delivery Progress</span>
@@ -277,7 +277,7 @@ export default function OrderTracking() {
                   </div>
                 </div>
                 
-          {/* Status Timeline */}
+          
                   <div className="relative">
             <div className="flex items-center justify-between mb-6">
               {steps.map((step, i) => (
@@ -304,7 +304,7 @@ export default function OrderTracking() {
                     </div>
                   </div>
           
-          {/* Current Status Display */}
+          
           <div className="text-center bg-blue-50 p-4 rounded-lg border border-blue-200">
             <div className="text-lg font-semibold text-blue-800">
               Current Status: {steps[currentStep]?.label}
@@ -314,7 +314,7 @@ export default function OrderTracking() {
                   </div>
                 </div>
                 
-          {/* Map and Info */}
+          
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1 min-w-[220px]">
               <div className="w-full h-64 bg-gray-100 rounded-lg overflow-hidden shadow relative">
@@ -353,7 +353,7 @@ export default function OrderTracking() {
                 )}
                 {!route.length && <span className="z-10 text-gray-400 font-semibold absolute inset-0 flex items-center justify-center">Live Map</span>}
               </div>
-              {/* Map Legend */}
+              
               <div className="flex justify-center gap-6 mt-3 text-xs text-gray-600">
                 <div className="flex items-center gap-1"><img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Restaurant" className="w-5 h-5" /> Restaurant</div>
                 <div className="flex items-center gap-1"><img src="https://cdn-icons-png.flaticon.com/512/194/194938.png" alt="Driver" className="w-5 h-5" /> Driver</div>
@@ -382,7 +382,7 @@ export default function OrderTracking() {
               </div>
             </div>
           </div>
-          {/* Progress Bar and ETA */}
+          
           <div className="mb-2">
             {expectedWindow && (
               <div className="text-xs text-gray-500 mb-1">{expectedWindow}</div>
@@ -396,7 +396,7 @@ export default function OrderTracking() {
                     </div>
                   </div>
                 </div>
-        {/* Right: Order Summary (sticky on desktop) */}
+        
         <div className="w-full md:w-[350px] lg:w-[400px] flex-shrink-0">
           <div className="bg-white rounded-2xl shadow-xl p-6 sticky top-24">
             <div className="font-semibold text-gray-800 mb-2 text-lg">Order Summary</div>

@@ -32,7 +32,7 @@ async function fetchOpenRouterResponse(message, apiKey) {
     }
     const data = await res.json();
     if (data.choices && data.choices[0]?.message?.content) {
-      // Post-process to trim to ~40 words
+      
       let text = data.choices[0].message.content.trim();
       const words = text.split(/\s+/);
       if (words.length > 40) {
@@ -54,7 +54,7 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const apiKey = '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';
+  const apiKey = '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';
   const chatRef = useRef(null);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function Chatbot() {
 
   return (
     <>
-      {/* Floating Button */}
+      
       <button
         className="fixed z-50 bottom-6 right-6 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg w-14 h-14 flex items-center justify-center text-3xl focus:outline-none"
         onClick={() => setOpen(o => !o)}
@@ -88,7 +88,7 @@ export default function Chatbot() {
       >
         💬
       </button>
-      {/* Chat Window */}
+      
       {open && (
         <div className="fixed z-50 bottom-24 right-6 w-80 max-w-[95vw] bg-white rounded-xl shadow-2xl flex flex-col border border-gray-200 animate-fade-in">
           <div className="flex items-center justify-between px-4 py-3 border-b">
